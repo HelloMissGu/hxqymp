@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我参与的共修",
+  "usingComponents": {
+    "float-btn": "../../components/MusicControl/musicControl"
+  }
+}

@@ -1,0 +1,42 @@
+<view class="user-list-container">
+  <view bindtap="chooseUser" data-index="{{userIndex}}" class="user-list-item {{(activeIndex === userIndex && !isAdding) ? 'item-active' : ''}}" wx:for-index="userIndex" wx:for="{{userList}}" wx:key="*this">
+    <view class="helper"></view>
+    <text class="name">{{item.name}}</text>
+    <view class="region-container">
+      <text class="region">{{item.address}}</text>
+      <!-- <text class="default-label" wx:if="{{item.isDefault}}">默认</text> -->
+    </view>
+    <text class="del iconfont icon-shanchu1" bindtap="delUser" data-index="{{userIndex}}" data-user="{{item}}"></text>
+  </view>
+  <view class="user-list-item user-list-add-item  {{isAdding ? 'item-active' : ''}}" wx:if="{{isAdding}}">
+    <view class="helper"></view>
+    <view class="add-form">
+      <view class="form-item">
+        <text class="label">姓名</text>
+        <input bindinput="handleNewUserName" value="{{newUserName}}" placeholder-style="color: rgba(139, 98, 62, .4);" placeholder="请输入或选择缘主信息"/>
+      </view>
+      <view class="form-item">
+        <text class="label">地址</text>
+        <picker mode="region" bindchange="handleNewUserRegion" value="{{newUserRegion}}">
+          <view class="picker-placeholder" wx:if="{{!newUserRegion}}">请选择地址</view>
+          <view class="picker">{{newUserRegion.value}}</view>
+        </picker>
+      </view>
+      <view class="btns">
+        <button class="cancel" bindtap="cancelSave" hover-class="cancel-hover">取消保存</button>
+        <button class="confirm" bindtap="confirmSave" hover-class="confirm-hover">保存新增</button>
+      </view>
+    </view>
+  </view>
+  <view class="user-list-add" wx:if="{{!isAdding}}" bindtap="addUser">
+    <text class="iconfont icon-tianjia"></text>
+  </view>
+  <!-- <button class="set-default-btn" disabled="{{activeIndex === ''}}" wx:if="{{(userList.length !== 0 && !isAdding)}}">设为默认缘主</button> -->
+</view>
+<alert
+  wx:if="{{alertMsg !== ''}}"
+  bind:hideEvent="hideAlert"
+  message="{{alertMsg}}"
+  lockScroll="true"
+/>
+<float-btn />

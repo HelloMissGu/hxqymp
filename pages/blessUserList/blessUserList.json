@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "缘主选择",
+  "usingComponents": {
+    "float-btn": "../../components/MusicControl/musicControl"
+  }
+}

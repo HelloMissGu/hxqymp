@@ -1,0 +1,141 @@
+<wxs module="util" src="../../utils/util.wxs" />
+<wxs module="lightDetail">
+var renderOrderPrice = function (o) {
+  var status = o.status
+  var result = o.productInfo.price * o.dailyAmount
+  if (status === 'topay' || status === 'cancel') {
+    result = o.blessTimes.length * o.productInfo.price * o.dailyAmount
+  }
+  return result.toFixed(2)
+}
+var handleDate = function (s) {
+  return s && s.substring(0, 10)
+}
+var handleDaily = function (status, daily) {
+  var s = ''
+  if (status !== '待支付' && status !== '已取消') {
+    s = ' x ' + daily + '盏'
+  }
+  return s
+}
+module.exports.renderOrderPrice = renderOrderPrice
+module.exports.handleDate = handleDate
+module.exports.handleDaily = handleDaily
+</wxs>
+
+<view class="my-light-detail-container">
+  <view class="light-detail-item">
+    <view class="helper"></view>
+    <view class="light-detail-status">
+      <view class="light-detail-status-title">订单{{orderDetail.status}}</view>
+      <view class="light-detail-status-content">
+        <view><text>订单号：</text>{{orderDetail.order_no}}</view>
+        <view><text>下单时间：</text>{{orderDetail.created}}</view>
+        <view><text>订单金额：</text>¥ {{util.handleAmount(orderDetail.amount)}}</view>
+      </view>
+      <view class="light-detail-status-feedback" wx:if="{{(orderDetail.status === '供奉中' || orderDetail.status === '已结束') && orderDetail.images && orderDetail.images.length }}">
+        <image wx:for="{{orderDetail.images}}" bindtap="previewImage" data-url="{{item}}" src="{{item}}" />
+        <view wx:if="{{orderDetail.images.length % 3 === 2}}"></view>
+      </view>
+    </view>
+  </view>
+  <view class="light-detail-item">
+    <view class="helper"></view>
+    <view class="brand-detail-type">
+      <view class="bless-order-item-title">供养类别</view>
+      <view class="bless-order-item-intro">
+        <image src="{{orderDetail.product_info.image}}" />
+        <view>
+          <view class="type-title">
+            <text class="title">{{orderDetail.product_info.name}}{{lightDetail.handleDaily(orderDetail.status, orderDetail.per_data_number)}}</text>
+            <text class="price"><text>{{util.handleAmount(orderDetail.product_info.price)}} </text> 元 / 盏</text>
+          </view>
+          <view class="order-dates">
+            <view class="date-text" wx:if="{{orderDetail.status !== '待支付' && orderDetail.status !== '已取消'}}">供奉日期：{{orderDetail.date}}</view>
+            <view class="date-amounts" wx:if="{{orderDetail.status === '待支付' || orderDetail.status === '已取消'}}"><text>{{orderDetail.per_data_number}}</text> 盏</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="light-detail-item" wx:if="{{orderDetail.status === '待支付' || orderDetail.status === '已取消'}}">
+    <view class="helper"></view>
+    <view class="bless-order-item-content">
+      <view class="bless-order-item-title">祈福时间</view>
+      <view class="bless-order-item-list">
+        <view class="light-time-list" >
+          <view class="light-time-item" wx:for="{{orderDetail.dates}}">
+            <view class="date-tip">
+              <text>{{item.label}}</text>
+              <view>
+                <view class="lunar" wx:if="{{item.lunar}}">农</view>
+                <view class="special" wx:if="{{item.special}}">殊</view>
+              </view>
+            </view>
+            <view class="date-detail">
+              {{item.lunar ? item.lunar + '。' : ''}}{{item.special ? item.special : ''}}
+            </view>
+          </view>
+        </view>
+        <view class="light-bless-total-days">共 <text>{{orderDetail.dates.length}}</text> 天</view>
+      </view>
+    </view>
+  </view>
+  <view class="light-detail-item">
+    <view class="helper"></view>
+    <view class="bless-order-item-content">
+      <view class="bless-order-item-title">缘主信息</view>
+      <view wx:if="{{!!orderDetail.patron_info.beneficiary_name === false}}" class="patron-info">
+        <view class="patron-info-item">
+          <text>姓名</text>
+          <text>{{orderDetail.patron_info.purchaser_name}}</text>
+        </view>
+        <view class="patron-info-item">
+          <text>祈福人地址</text>
+          <text>{{orderDetail.patron_info.purchaser_address}}</text>
+        </view>
+        <view class="patron-info-item">
+          <text>祈福语</text>
+          <text>{{orderDetail.patron_info.content}}</text>
+        </view>
+      </view>
+      <view wx:if="{{!!orderDetail.patron_info.beneficiary_name === true}}" class="patron-info">
+        <view class="patron-info-item">
+          <text>被送福人</text>
+          <text>{{orderDetail.patron_info.beneficiary_name}}</text>
+        </view>
+        <view class="patron-info-item">
+          <text>被送福人地址</text>
+          <text>{{orderDetail.patron_info.beneficiary_address}}</text>
+        </view>
+        <view class="patron-info-item">
+          <text>送福人</text>
+          <text>{{orderDetail.patron_info.purchaser_name}}</text>
+        </view>
+        <view class="patron-info-item">
+          <text>送福人地址</text>
+          <text>{{orderDetail.patron_info.purchaser_address}}</text>
+        </view>
+        <view class="patron-info-item">
+          <text>祈福语</text>
+          <text>{{orderDetail.patron_info.content}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<button class="rebuy" bindtap="rebuy" wx:if="{{orderDetail.status === '已结束'}}">再次购买</button>
+<view class="continue-buy" wx:if="{{orderDetail.status === '待支付'}}">
+  <button class="cancel-buy" bindtap="cancelBuy" hover-class="cancel-buy-hover">取消支付</button>
+  <button class="go-buy" bindtap="buy" hover-class="go-buy-hover">
+    <text>¥ {{util.handleAmount(orderDetail.amount)}}</text>继续支付
+  </button>
+</view>
+
+<alert
+  wx:if="{{alertMsg !== ''}}"
+  bind:hideEvent="hideAlert"
+  message="{{alertMsg}}"
+  lockScroll="true"
+/>
+<float-btn />

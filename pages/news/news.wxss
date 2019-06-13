@@ -1,0 +1,176 @@
+@import '../../assets/iconfont/font.wxss';
+page {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+  background: #F9EEDA url(https://gongde-assets.oss-cn-shenzhen.aliyuncs.com/texture.png) repeat repeat;
+}
+.news-container {
+  width: 100%;
+  height: 100%;
+}
+.news-content-container {
+  height: 100%;
+  box-sizing: border-box;
+}
+/* ----------- 选择 tab ----------- */
+.choose-bar-container {
+  width: 100%;
+  padding-top: 32rpx;
+}
+.choose-bar {
+  width: 360rpx;
+  height: 60rpx;
+  border: 1px solid #A41522;
+  margin: 0 auto;
+}
+.choose-bar .news,
+.choose-bar .donate {
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  font-size: 32rpx;
+  color: #A41522;
+  line-height: 60rpx;
+  float: left;
+}
+.choose-bar view.active {
+  font-weight: bold;
+  background: #A41522;
+  color: #F3EFEB;
+}
+/* ----------- 法讯列表 ----------- */
+.news-list-container {
+  margin-top: 48rpx;
+  position: relative;
+  height: calc(100% - 144rpx);
+}
+.empty-news {
+  position: absolute;
+  width: 100%;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #382F30;
+  font-size: 28rpx;
+}
+.empty-news .iconfont {
+  font-size: 64rpx;
+  margin-bottom: 32rpx;
+}
+.news-list-item {
+  width: 92%;
+  height: 200rpx;
+  margin: 0 auto 24rpx auto;
+  background: #F3EFEB;
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, .5);
+  border-radius: 12rpx;
+  display: flex;
+}
+.news-list-item image {
+  flex: 0 0 300rpx;
+  height: 200rpx;
+  border-top-left-radius: 12rpx;
+  border-bottom-left-radius: 12rpx;
+}
+.news-item-title {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #3C160F;
+  overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	line-height: 36rpx;
+	max-height: 108rpx;
+}
+.news-item-info {
+  height: 100%;
+  width: calc(100% - 300rpx);
+  padding: 12rpx 20rpx 12rpx 20rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1 0 auto;
+}
+.news-item-info .news-item-date {
+  font-size: 26rpx;
+  color: #8B623E;
+  font-weight: normal;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.icon-13 {
+  font-size: 42rpx;
+  vertical-align: middle;
+}
+.news-release-date {
+  vertical-align: middle;
+}
+.icon-myIcon_right {
+  font-size: 28rpx;
+  color: #A41522;
+}
+/* ----------- 共修列表 ----------- */
+.donate-list-container {
+  margin-top: 48rpx;
+  /* padding-bottom: 32rpx; */
+  position: relative;
+  height: calc(100% - 144rpx);
+}
+.donate-list-item {
+  width: 92%;
+  height: 456rpx;
+  margin: 0 auto 24rpx auto;
+  background: #F3EFEB;
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, .5);
+  border-radius: 12rpx;
+  display: flex;
+  flex-direction: column;
+}
+.donate-list-item image {
+  width: 100%;
+  height: 320rpx;
+  flex: 0 0 320rpx;
+  border-radius: 12rpx;
+}
+.donate-item-info {
+  box-sizing: border-box;
+  padding: 20rpx 24rpx 16rpx 24rpx;
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.donate-item-title {
+  color: #3C160F;
+  font-size: 32rpx;
+  font-weight: bold;
+  overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	line-height: 32rpx;
+	max-height: 32rpx;
+}
+.donate-item-date {
+  display: flex;
+  justify-content: space-between;
+}
+.donate-item-date .icon-13 {
+  color: #8B623E;
+}
+.donate-upto-date {
+  color: #8B623E;
+  font-size: 26rpx;
+}
+.donate-detail-btn {
+  color: #A41522;
+  font-size: 26rpx;
+}

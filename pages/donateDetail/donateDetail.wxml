@@ -1,0 +1,167 @@
+<wxs module="handleDonate">
+var handleDonateItemDate = function (s) {
+  return s.substring(0, 10)
+}
+var handleCash = function (m) {
+  var cash = +(+m / 100)
+  return cash.toFixed(2)
+}
+var handleTimeDistance = function (t) {
+  var now = getDate()
+  console.log(t)
+  var before = getDate(t)
+  console.log(before)
+  var interval = now.getTime() - before.getTime()
+  console.log(interval)
+  if (interval <= 60000) {
+    return '刚刚'
+  } else if (interval > 60000 && interval <= 3600000) {
+    var minutes = interval / 1000 / 60
+    return minutes.toFixed(0) + ' 分钟前'
+  } else if (interval > 3600000 && interval <= 86400000) {
+    var hours = interval / 1000 / 60 / 60
+    return hours.toFixed(0) + ' 小时前'
+  } else if (interval > 86400000 && interval < 2592000000) {
+    var days = interval / 1000 / 60 / 60 / 24
+    return days.toFixed(0) + ' 天前'
+  } else {
+    var months = interval / 1000 / 60 / 60 / 24 / 30
+    return months.toFixed(0) + ' 月前'
+  }
+}
+
+module.exports.handleDonateItemDate = handleDonateItemDate
+module.exports.handleCash = handleCash
+module.exports.handleTimeDistance = handleTimeDistance
+</wxs>
+<view class="donate-detail-container">
+  <!-- <swiper circular="true"> -->
+    <!-- <block wx:for="{{donateDetail.images}}" wx:key="*this"> -->
+      <!-- <swiper-item> -->
+        <image class="banner" src="{{donateDetail.image}}" mode="aspectFill" />
+      <!-- </swiper-item> -->
+    <!-- </block> -->
+  <!-- </swiper> -->
+  <view class="donate-detail-title-container">
+    <text>{{donateDetail.temple_name}}——{{donateDetail.title}}</text>
+    <view>
+      <view>
+        <text class="iconfont icon-13"></text>
+        <text>截止至{{handleDonate.handleDonateItemDate(donateDetail.end_time)}}</text>
+      </view>
+      <text>{{donateDetail.status}}</text>
+      <!-- <text>{{donateDetail.status === 'donating' ? '正在进行中' : '已结束'}}</text> -->
+    </view>
+  </view>
+  <view class="donate-detail-info-container">
+    <view class="helper"></view>
+    <view class="donate-info-done" wx:if="{{donateDetail.status !== '众筹中'}}">
+      <view class="donate-info-done-title">
+        {{donateDetail.current_amount >= donateDetail.amount ? '目标已达成' : '目标未达成'}}
+      </view>
+      <view class="donate-info-done-content">
+        <view class="donate-info-done-progress">
+          <view class="front" style="clip: {{'rect(auto auto '+ ((1 - donateDetail.current_amount / donateDetail.amount)*100) +'rpx auto)'}}">
+            <text class="iconfont icon-fobiaozhi"></text>
+          </view>
+          <view class="back">
+            <text class="iconfont icon-fobiaozhi"></text>
+          </view>
+        </view>
+        <view class="donate-info-done-amount">
+          <view class="donate-info-done-amount-target">
+            <text>目标共修</text> <view><text class="done-amount-target-item" wx:for="{{donateDetail.amount + ''}}">{{item}}</text></view><text class="unit">份</text>
+          </view>
+          <view class="donate-info-done-amount-have">
+            <text>已剩余</text><view><text wx:for="{{paddingArr}}" class="done-amount-have-item" style="visibility: hidden;">0</text><text class="done-amount-have-item" wx:for="{{(donateDetail.amount - donateDetail.current_amount) + ''}}">{{item}}</text></view><text class="unit">份</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="donate-info-done-report" wx:if="{{!!donateDetail.report}}">
+      <view class="donate-info-done-report-title">结果汇报：</view>
+      <view class="donate-info-done-report-content">
+        <import src="../../utils/wxParse/wxParse.wxml"/>
+        <template is="wxParse" data="{{wxParseData:donateReport.nodes}}"/>
+      </view>
+    </view>
+    <view class="donate-info-ing" wx:if="{{donateDetail.status === '众筹中'}}">
+      <view class="donate-info-ing-content">
+        <view class="donate-info-ing-progress">
+          <view class="front" style="clip: {{'rect(auto auto '+ ((1 - donateDetail.current_amount / donateDetail.amount)*100) +'rpx auto)'}}">
+            <text class="iconfont icon-fobiaozhi"></text>
+          </view>
+          <view class="back">
+            <text class="iconfont icon-fobiaozhi"></text>
+          </view>
+        </view>
+        <view class="donate-info-ing-amount">
+          <view class="donate-info-ing-amount-target">
+            <text>目标共修</text> <view><text class="ing-amount-target-item" wx:for="{{donateDetail.amount + ''}}">{{item}}</text></view><text class="unit">份</text>
+          </view>
+          <view class="donate-info-ing-amount-have">
+            <text>已剩余</text><view><text wx:for="{{paddingArr}}" class="ing-amount-have-item" style="visibility: hidden;">0</text><text class="ing-amount-have-item" wx:for="{{(donateDetail.amount - donateDetail.current_amount) + ''}}">{{item}}</text></view><text class="unit">份</text>
+          </view>
+        </view>
+      </view>
+      <view class="donate-info-ing-form">
+        <text>我要共修</text>
+        <input type="number" bindinput="handleDonateInput" placeholder="请输入参与共修份数" placeholder-style="color: rgba(139, 98, 62, .4)" />
+        <text>份</text>
+      </view>
+      <view class="donate-info-ing-form-tip">
+        注：每份共修价格 ¥ {{handleDonate.handleCash(donateDetail.price)}}
+      </view>
+      <button bindtap='payDonate'  class="{{!donateValue ? 'disable-btn donate-btn' : 'donate-btn'}}">参与共修</button>
+    </view>
+  </view>
+  <view class="divider"></view>
+  <view class="donate-detail-intro-container">
+    <view class="donate-detail-intro-tab">
+      <view bindtap="changeDonateType" data-type='yq' class="{{introTab === 'yq' ? 'intro-tab-active' : ''}}">缘起</view>
+      <view bindtap="changeDonateType" data-type='mx' class="{{introTab === 'mx' ? 'intro-tab-active' : ''}}">明细</view>
+    </view>
+    <view class="yq-container" wx:if="{{introTab === 'yq'}}">
+      <import src="../../utils/wxParse/wxParse.wxml"/>
+      <template is="wxParse" data="{{wxParseData:yqArticle.nodes}}"/>
+    </view>
+    <view class="mx-container" wx:if="{{introTab === 'mx'}}">
+      <view class="mx-amount-container">
+        <view class="helper"></view>
+        <view class="mx-amount-content">
+          <view><text>{{donateDetail.order_total}}</text>次共修</view>
+          <view><text>{{donateDetail.order_user_total}}</text>名共修者</view>
+        </view>
+      </view>
+      <view class="mx-donate-user-list">
+        <view class="empty-users" wx:if="{{donateUserList.length === 0 || donateUserList === null}}">
+          <view class="iconfont icon-kong"></view>
+          <view>———— 暂无共修者信息 ————</view>
+        </view>
+        <view class="mx-donate-user-item" wx:for="{{donateUserList}}" wx:key="*this">
+          <image src="{{item.face_url}}" />
+          <view class="user-detail">
+            <view class="user-detail-title">
+              <text class="user-name">{{item.nick_name}}</text>
+              <text class="user-donate">参与共修了 <text>{{handleDonate.handleCash(item.amount * donateDetail.price)}}</text> 元</text>
+            </view>
+            <view class="user-detail-sub">
+              <view>
+                <text class="iconfont icon-xianglu"></text>
+                <text> {{handleDonate.handleCash(item.virtue_amount)}} 功德值</text>
+              </view>
+              <text class="user-donate-time">{{handleDonate.handleTimeDistance(item.created)}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <alert
+    wx:if="{{alertMsg !== ''}}"
+    bind:hideEvent="hideAlert"
+    message="{{alertMsg}}"
+    lockScroll="true"
+  />
+</view>
+<float-btn />

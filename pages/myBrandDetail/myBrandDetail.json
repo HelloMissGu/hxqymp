@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "供奉牌位详情",
+  "usingComponents": {
+    "alert": "../../components/Alert/alert",
+    "float-btn": "../../components/MusicControl/musicControl"
+  }
+}

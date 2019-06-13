@@ -1,0 +1,75 @@
+<wxs module="util" src="../../utils/util.wxs" />
+<wxs module="brand">
+var renderOrderList = function (a, t) {
+  if (t === '全部') return a
+  return a.filter(function (item) {
+    return item.status === t
+  })
+}
+var renderCurrentList = function (obj, status) {
+  var STATUSMAP = {
+    'all': 'all',
+    '供奉中': 'ing',
+    '待供奉': 'tobless',
+    '已结束': 'done',
+    '待支付': 'topay',
+    '已取消': 'cancel',
+    '全部': 'all'
+  }
+  var k = STATUSMAP[status]
+  console.log(k)
+  return obj[k + '']
+}
+module.exports.renderOrderList = renderOrderList
+module.exports.renderCurrentList = renderCurrentList
+</wxs>
+<view class="my-brand-container">
+  <view class="type-list">
+    <view class="type-list-container">
+      <view bindtap="handleOrderType" data-type="{{item.value}}" wx:for="{{statusList}}" class="{{statusActive === item.value ? 'status-active' : ''}}" wx:key="*this">
+        <text>{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="divider"></view>
+  <scroll-view class="my-brand-order-list" bindscrolltolower="reachBottom" scroll-y="true" lower-threshold="50">
+    <view class="my-brand-order-container">
+      <!-- <view class="empty-order" wx:if="{{brand.renderOrderList(allOrderList, statusActive).length === 0}}"> -->
+      <view class="empty-order" wx:if="{{brand.renderCurrentList(allOrderList, statusActive).length === 0}}">
+        <view class="iconfont icon-kong"></view>
+        <view>———— 暂无该类别订单 ————</view>
+      </view>
+      <!-- <view class="my-brand-order-item" data-id="{{item.id}}" wx:for="{{brand.renderOrderList(allOrderList, statusActive)}}"> -->
+      <view class="my-brand-order-item" data-id="{{item.id}}" wx:for="{{brand.renderCurrentList(allOrderList, statusActive)}}">
+        <view class="helper"></view>
+        <view class="my-brand-order-item-content">
+          <view class="status-bar">
+            <view bindtap="gotoTemple" data-temple="{{item.temple_id}}">
+              <text class="iconfont icon-simiao"></text>
+              <text class="temple-name">{{item.temple_name}}</text>
+              <text class="iconfont icon-myIcon_right"></text>
+            </view>
+            <text class="temple-status">订单{{item.status}}</text>
+          </view>
+          <view class="goods-info">
+            <image src="{{item.product_info.image}}" />
+            <view class="goods-order-info">
+              <view>
+                <view class="goods-name">{{item.product_info.name}} x {{item.days}} 天</view>
+                <view class="goods-unit">{{util.handleAmount(item.product_info.price)}} 元 / 天</view>
+              </view>
+              <view>
+                <view>合计：<text>¥ {{util.handleAmount(item.amount)}}</text></view>
+              </view>
+            </view>
+          </view>
+          <view class="btns">
+            <button class="buy-again" bindtap="gotoTemple" data-temple="{{item.temple_id}}" wx:if="{{item.orderStatus === '已结束'}}" hover-class="buy-again-hover">再次购买</button>
+            <button class="go-detail" bindtap="handleDetail" data-id="{{item.id}}" hover-class="go-detail-hover">查看详情</button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+<float-btn />

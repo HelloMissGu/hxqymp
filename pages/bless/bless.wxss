@@ -1,0 +1,305 @@
+@import '../../assets/iconfont/font.wxss';
+page {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+}
+page, .bless-type-container .mask {
+  background: #F9EEDA url(https://gongde-assets.oss-cn-shenzhen.aliyuncs.com/texture.png) repeat repeat;
+}
+.bless-flow-container, .bless-type-container, .bless-intro-container {
+  width: 100%;
+  margin-top: 8rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 18rpx 32rpx 32rpx 32rpx;
+  position: relative;
+}
+.bless-intro-container {
+  padding-bottom: 80rpx;
+}
+.bless-flow-container {
+  padding: 18rpx 0;
+}
+.bless-flow-title, .bless-type-title, .bless-intro-title {
+  color: #382F30;
+  font-size: 32rpx;
+  font-weight: bold;
+  position: relative;
+  text-align: center;
+  display: inline-block;
+  margin: 0 auto 16rpx auto;
+}
+.bless-flow-title::before, .bless-flow-title::after, .bless-type-title::before, .bless-type-title::after, .bless-intro-title::before, .bless-intro-title::after {
+  background: url(https://gongde-assets.oss-cn-shenzhen.aliyuncs.com/cloud.png);
+}
+.bless-flow-title::before, .bless-type-title::before, .bless-intro-title::before {
+  content: '';
+  position: absolute;
+  width: 64rpx;
+  height: 28rpx;
+  left: -80rpx;
+  top: 8rpx;
+  background-size: 64rpx 28rpx;
+}
+.bless-flow-title::after, .bless-type-title::after, .bless-intro-title::after {
+  content: '';
+  position: absolute;
+  width: 64rpx;
+  height: 28rpx;
+  right: -80rpx;
+  top: 8rpx;
+  background-size: 64rpx 28rpx;
+  transform: scale(-1, 1);
+}
+.bless-guide-container .bless-guide-item text,
+.bless-guide-container .bless-guide-item view {
+  display: block;
+  margin-left: 30rpx;
+  font-size: 26rpx;
+  color: #8B623E;
+}
+.bless-guide-container .bless-guide-item view {
+  width: 36rpx;
+  height: 36rpx;
+  border: 1px solid;
+  padding: 4rpx;
+  text-align: center;
+  border-radius: 100rpx;
+}
+.bless-guide-container .bless-guide-item view.active {
+  background: #A41522;
+  border-color: #A41522;
+  color: white;
+}
+.bless-guide-container .bless-guide-item text.iconfont {
+  font-size: 24rpx;
+}
+.bless-guide-container .bless-guide-item:nth-last-child(1) text {
+  display: none;
+}
+.bless-guide-container .bless-guide-item:nth-child(1) view {
+  margin-left: 0;
+}
+.bless-guide-container, .bless-guide-item {
+  display: flex;
+}
+.bless-guide-container {
+  margin-top: 20rpx;
+  justify-content: center;
+}
+.bless-guide-item {
+  align-items: center;
+}
+.bless-flow-content-container {
+  width: 100%;
+  margin-top: 28rpx;
+  display: flex;
+  white-space: nowrap;
+  align-items: flex-start;
+}
+.bless-flow-content-container .bless-flow-content-left {
+  width: calc(50% - 320rpx);
+  flex: 0 0 calc(50% - 320rpx);
+  display: inline-block;
+  height: 1px;
+}
+.bless-flow-content-container .bless-flow-content-right {
+  width: calc(50% - 338rpx);
+  flex: 0 0 calc(50% - 338rpx);
+  display: inline-block;
+  height: 1px;
+}
+.bless-flow-content-container::-webkit-scrollbar {
+  display:none
+}
+.bless-flow-content-item {
+  display: inline-block;
+  text-align: center;
+  width: 640rpx;
+  height: 100%;
+  flex: 0 0 640rpx;
+  margin-right: 18rpx;
+  padding: 0 10rpx;
+  box-sizing: border-box;
+  transition: all .3s;
+  opacity: .5;
+  white-space: normal;
+}
+.bless-flow-content-item.active {
+  opacity: 1;
+}
+.bless-flow-content-item image {
+  width: 620rpx;
+  height: 300rpx;
+  border-radius: 12rpx;
+}
+.bless-flow-content-item text {
+  width: 620rpx;
+  display: block;
+  color: #3C160F;
+  font-size: 26rpx;
+  text-align: center;
+  word-break: break-all;
+}
+.divider {
+  width: 100%;
+  height: 12rpx;
+  background: #F3EFEB;
+}
+/* ---------- 供养类型 ------------ */
+.bless-type-list {
+  margin-top: 16rpx;
+}
+.bless-type-container .mask {
+  height: 120rpx;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  text-align: center;
+  z-index: 100;
+  -webkit-mask-image: -webkit-linear-gradient(bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+}
+.mask .iconfont {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  line-height: 120rpx;
+}
+.bless-type-item {
+  display: flex;
+  width: 100%;
+  height: 240rpx;
+  border: 1px solid #A28165;
+  position: relative;
+  align-items: center;
+  margin-bottom: 24rpx;
+  transition: all .3s;
+}
+.bless-type-item.item-active {
+  background: rgba(255, 255, 255, .6);
+}
+.bless-type-item::before, .bless-type-item::after, .helper::before, .helper::after {
+  background: url(https://gongde-assets.oss-cn-shenzhen.aliyuncs.com/border.png) repeat repeat;
+  width: 40rpx;
+  height: 40rpx;
+  background-size: 40rpx 40rpx;
+  position: absolute;
+  content: '';
+  transition: all .3s;
+}
+.bless-type-item.item-active {
+  border-color: #A41522;
+}
+.bless-type-item.item-active::before, .bless-type-item.item-active::after, .item-active .helper::before, .item-active .helper::after {
+  background: url(https://gongde-assets.oss-cn-shenzhen.aliyuncs.com/border-red.png) repeat repeat;
+  width: 40rpx;
+  height: 40rpx;
+  background-size: 40rpx 40rpx;
+  position: absolute;
+  content: '';
+}
+.bless-type-item::before {
+  left: 0;
+  top: 0;
+}
+.bless-type-item::after {
+  right: 0;
+  top: 0;
+  transform: rotate(90deg);
+}
+.helper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.helper::before {
+  left: 0;
+  bottom: 0;
+  transform: rotate(-90deg);
+}
+.helper::after {
+  right: 0;
+  bottom: 0;
+  transform: rotate(180deg);
+}
+.bless-type-item image {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 12rpx;
+  flex: 0 0 160rpx;
+  margin-left: 32rpx;
+  border: 1px solid transparent;
+}
+.bless-type-item.item-active image {
+  border: 1px solid #A41522;
+}
+.bless-type-item-content {
+  display: flex;
+  flex-direction: column;
+  margin: 0 32rpx;
+  justify-content: space-between;
+  height: 180rpx;
+  flex: 1 1 auto;
+}
+.bless-type-item-content .bless-type-item-title {
+  display: flex;
+  justify-content: space-between;
+}
+.item-name {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #3C160F;
+}
+.item-unitprice {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #A41522;
+}
+.bless-type-item-intro {
+  margin-top: 6rpx;
+  font-size: 26rpx;
+  color: #8B623E;
+  line-height: 32rpx;
+}
+/* ---------- 供养介绍 ------------ */
+.bless-intro-content {
+  margin-top: 16rpx;
+  color: #382F30;
+  font-size: 26rpx;
+  padding-bottom: 130rpx;
+}
+.bless-intro-content text {
+  display: block;
+  margin-top: 28rpx;
+}
+/* ---------- 发心祈福 ------------ */
+button {
+  display: block;
+  color: #F3EFEB;
+  font-size: 36rpx;
+  width: 100%;
+  height: 100rpx;
+  z-index: 200;
+  line-height: 100rpx;
+  background: #A41522;
+  position: fixed;
+  bottom: 0;
+  border-radius: 0;
+  border: none;
+}
+button::after {
+  border-radius: 0;
+  border: none;
+}
+.button-hover {
+  background-color: rgb(107, 14, 21);
+  color: #F3EFEB;
+}

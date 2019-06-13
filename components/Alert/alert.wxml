@@ -1,0 +1,15 @@
+<view class="alert-container" wx:if="{{lockScroll}}" catchtouchmove="true" bindtap="_hideAlert">
+  <view class="alert-wrap">
+    <view class="alert-icon"><text class="iconfont icon-fobiaozhi"></text></view>
+    <view class="alert-content"><text>{{message}}</text></view>
+    <button class="alert-btn" catchtap="_hideAlert">我知道了</button>
+  </view>
+</view>
+
+<view class="alert-container" wx:if="{{!lockScroll}}" bindtap="_hideAlert">
+  <view class="alert-wrap">
+    <view class="alert-icon"><text class="iconfont icon-fobiaozhi"></text></view>
+    <view class="alert-content"><text>{{message}}</text></view>
+    <button class="alert-btn" catchtap="_hideAlert">我知道了</button>
+  </view>
+</view>

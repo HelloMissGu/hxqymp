@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我供奉的牌位",
+  "usingComponents": {
+    "float-btn": "../../components/MusicControl/musicControl"
+  }
+}

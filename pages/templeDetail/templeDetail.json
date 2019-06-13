@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "祈福",
+  "usingComponents": {
+    "float-btn": "../../components/MusicControl/musicControl"
+  }
+}

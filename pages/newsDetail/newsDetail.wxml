@@ -1,0 +1,14 @@
+<view class="news-detail-container">
+  <image class="title-img" mode="aspectFill" src="{{news.previews.length ? news.previews[0].image_url : ''}}" />
+  <view class="news-detail-content">
+    <text class="title">{{news.title}}</text>
+    <view class="new-detail-html">
+      <import src="../../utils/wxParse/wxParse.wxml"/>
+      <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+    <!-- <text class="sub-title">{{news.subTitle}}</text> -->
+    <!-- <text class="content">{{news.content}}</text> -->
+    <!-- <image class="content-img" mode="widthFix" src="{{news.contentImg}}"></image> -->
+    </view>
+  </view>
+</view>
+<float-btn />

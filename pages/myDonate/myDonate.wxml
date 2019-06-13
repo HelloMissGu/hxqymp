@@ -1,0 +1,43 @@
+<wxs module="handleMyDonate">
+var handleDonateItemDate = function (s) {
+  return s.substring(0, 10)
+}
+
+module.exports.handleDonateItemDate = handleDonateItemDate
+</wxs>
+<scroll-view class="news-container" bindscrolltolower="reachBottom" scroll-y="true" lower-threshold="50">
+  <view class="donate-list-container">
+    <view class="empty-donate" wx:if="{{donateList.length === 0 || donateList === null}}">
+      <view class="iconfont icon-kong"></view>
+      <view>———— 暂未参加共修 ————</view>
+    </view>
+    <navigator url="/pages/donateDetail/donateDetail?id={{item.id}}"
+      wx:for="{{donateList}}" wx:key="*this" hover-class="none">
+      <view class="donate-list-item">
+        <image src="{{item.image}}" />
+        <view class="donate-item-info">
+          <text class="donate-item-title">{{item.temple_name}}——{{item.title}}</text>
+          <view>
+            <view class="donate-item-amount">
+              <view>
+                <text class="iconfont icon-qianbao1"></text>
+                <text class="donate-amount">已参与 <text>{{item.number}}</text> 份</text>
+              </view>
+            </view>
+            <view class="donate-item-date">
+              <view>
+                <text class="iconfont icon-13"></text>
+                <text class="donate-upto-date">截止至{{handleMyDonate.handleDonateItemDate(item.end_time)}}</text>
+              </view>
+              <view>
+                <text class="donate-detail-btn">查看共修详情</text>
+                <text class="iconfont icon-myIcon_right"></text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </navigator>
+  </view>
+</scroll-view>
+<float-btn />

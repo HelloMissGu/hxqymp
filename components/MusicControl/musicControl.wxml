@@ -1,0 +1,9 @@
+<view class="float-btn">
+  <button plain="true" hover-class="float-btn-hover" class="music-btn" bindtap="_toggleMusic">
+    <view class="delete-line" wx:if="{{musicStatus === false}}"></view>
+    <text class="iconfont icon-yinfu text"></text>
+  </button>
+  <navigator url="/pages/signin/signin">
+    <button plain="true" hover-class="float-btn-hover" class="reg-btn"><text class="text">签</text></button>
+  </navigator>
+</view>

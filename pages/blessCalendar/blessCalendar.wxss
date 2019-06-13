@@ -1,0 +1,251 @@
+@import '../../assets/iconfont/font.wxss';
+page {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+  background: #F9EEDA url(https://gongde-assets.oss-cn-shenzhen.aliyuncs.com/texture.png) repeat repeat;
+}
+.calendar {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+  background: #F9EEDA url(https://gongde-assets.oss-cn-shenzhen.aliyuncs.com/texture.png) repeat repeat;
+}
+.calendar-header-container {
+  width: calc(100% - 64rpx);
+  margin: 0 auto;
+  color: #8B623E;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28rpx 0;
+}
+.calendar-header-container .iconfont {
+  flex: 1 1 auto;
+  text-align: right;
+}
+.prev-month {
+  transform: scale(-1, 1);
+}
+.month-title {
+  font-size: 32rpx;
+  color: #3C160F;
+  font-weight: bold;
+}
+.divider {
+  width: 100%;
+  background: #F3EFEB;
+  height: 4rpx;
+}
+/* -------------- 日历主体 ---------------- */
+.calendar-body-container, .calendar-footer-container {
+  width: calc(100% - 144rpx);
+  margin: 0 auto;
+}
+.body-title {
+  margin-top: 12rpx;
+  display: flex;
+  justify-content: space-between;
+  font-size: 28rpx;
+  color: rgba(139, 98, 62, .6);
+  border-bottom: 1px solid rgba(139, 98, 62, .6);
+}
+.body-title text {
+  padding: 24rpx;
+}
+.calendar-body {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  font-weight: bold;
+  font-size: 32rpx;
+  color: #8B623E;
+}
+.calendar-body-item {
+  width: calc(100% / 7);
+  text-align: center;
+  height: 100rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding-bottom: 12rpx;
+}
+.calendar-body-item text:nth-child(2) {
+  font-size: 18rpx;
+}
+.calendar-body-item:nth-child(7n)::after {
+  content: '';
+  width: 700%;
+  height: 1px;
+  background: rgba(139, 98, 62, .6);
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.calendar-body-item view {
+  display: flex;
+  flex-direction: column;
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 40rpx;
+}
+.item-lunar {
+  color: #A41522;
+}
+.choose-active view {
+  border-radius: 40rpx;
+  background: #A41522;
+  color: #F3EFEB;
+}
+.icon-lianhua {
+  position: absolute;
+  left: 50%;
+  bottom: 4rpx;
+  transform: translateX(-50%);
+}
+.calendar-footer-container {
+  display: flex;
+  justify-content: space-between;
+}
+.calendar-footer-container button {
+  width: 200rpx;
+  height: 60rpx;
+  border: 1px solid #8B623E;
+  border-radius: 12rpx;
+  text-align: center;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  color: #8B623E;
+  margin: 0;
+  margin-top: 120rpx;
+  background: none;
+}
+.calendar-footer-container .calendar-btn.calendar-btn-hover {
+  background: #8B623E;
+  color: #F3EFEB;
+}
+button.confirm-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #F3EFEB;
+  font-size: 36rpx;
+  width: calc(100% - 64rpx);
+  height: 100rpx;
+  z-index: 200;
+  line-height: 100rpx;
+  background: #A41522;
+  border-radius: 12rpx;
+  border: none;
+  margin: 72rpx auto 36rpx auto;
+}
+button.confirm-btn::after {
+  border-radius: 12rpx;
+  border: none;
+}
+.confirm-btn.button-hover {
+  background-color: rgb(107, 14, 21);
+  color: #F3EFEB;
+}
+button.confirm-btn .iconfont {
+  font-size: 48rpx;
+  margin-right: 16rpx;
+}
+.prompt {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 300;
+  background: rgba(56, 47, 48, .8)
+}
+.prompt > view {
+  width: 590rpx;
+  height: 360rpx;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #EBD7B7;
+  border-radius: 12rpx;
+}
+.prompt-icon {
+  width: 100rpx;
+  height: 100rpx;
+  position: absolute;
+  left: 50%;
+  top: 0%;
+  transform: translate(-50%, -50%);
+  background: #EBD7B7;
+  border-radius: 50rpx;
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, .5);
+  color: #8B623E;
+  text-align: center;
+  line-height: 100rpx;
+}
+.prompt-icon .iconfont {
+  font-size: 64rpx;
+}
+.prompt-content {
+  text-align: center;
+  color: #3C160F;
+}
+.prompt-lunar {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-top: 100rpx;
+}
+.prompt-special {
+  font-size: 28rpx;
+  margin-top: 30rpx;
+}
+.prompt-btn-container {
+  width: 100%;
+  height: 80rpx;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+}
+.prompt-btn {
+  width: 50%;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #8B623E;
+  color: #F3EFEB;
+  font-size: 28rpx;
+  border-radius: 0;
+  border: none;
+  position: absolute;
+  bottom: 0;
+}
+.prompt-btn.btn-left {
+  left: 0;
+  border-radius: 0;
+  border-bottom-left-radius: 12rpx;
+}
+.prompt-btn.btn-right {
+  right: 0;
+  border-radius: 0;
+  border-bottom-right-radius: 12rpx;
+}
+.prompt-btn.btn-left::after {
+  border-radius: 0;
+  border-bottom-left-radius: 12rpx;
+  border: none;
+}
+.prompt-btn.btn-right::after {
+  border-radius: 0;
+  border-bottom-right-radius: 12rpx;
+  border: none;
+}
+.prompt-btn.button-hover {
+  background-color: #63462C;
+  color: #F3EFEB;
+}

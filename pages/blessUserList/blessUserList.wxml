@@ -1,0 +1,11 @@
+<view class="user-list-container">
+  <view bindtap="chooseUser" data-index="{{userIndex}}"
+    class="user-list-item {{activeIndex === userIndex ? 'item-active' : ''}}"
+    wx:for-index="userIndex" wx:for="{{userList}}" wx:key="*this">
+    <view class="helper"></view>
+    <text class="name">{{item.name}}</text>
+    <view class="region-container">
+      <text class="region">{{item.address}}</text>
+    </view>
+  </view>
+</view>

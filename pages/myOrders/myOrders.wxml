@@ -1,0 +1,89 @@
+<wxs module="util" src="../../utils/util.wxs" />
+<wxs module="order">
+var renderOrderList = function (a, t) {
+  if (t === '全部') return a
+  return a.filter(function (item) {
+    return item.status === t
+  })
+}
+var renderCurrentList = function (type, obj, status) {
+  var STATUSMAP = {
+    'all': 'all',
+    '供奉中': 'ing',
+    '待供奉': 'tobless',
+    '已结束': 'done',
+    '待支付': 'topay',
+    '已取消': 'cancel',
+    '全部': 'all'
+  }
+  var typeArr = obj[type]
+  var k = STATUSMAP[status]
+  console.log(k)
+  return obj[type][k]
+}
+module.exports.renderOrderList = renderOrderList
+module.exports.renderCurrentList = renderCurrentList
+</wxs>
+<view class="my-orders-container">
+  <view class="order-choose-bar-container">
+    <view class="order-choose-bar">
+      <view bindtap="changeType" data-type='light' class="light {{type === 'light' ? 'active' : ''}}">供灯</view>
+      <view bindtap="changeType" data-type='ribbon' class="ribbon {{type !== 'light' ? 'active' : ''}}">福带</view>
+    </view>
+  </view>
+  <view class="s-divider"></view>
+  <view class="order-status-type-list-container">
+    <view class="order-status-type-list">
+      <view bindtap="handleOrderType" data-status="{{item.value}}" wx:for="{{statusList}}" class="{{statusActive === item.value ? 'status-active' : ''}}" wx:key="*this">
+        <text>{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="l-divider"></view>
+  <scroll-view class="my-order-list" bindscrolltolower="reachBottom" scroll-y="true" lower-threshold="50">
+    <view class="my-order-container">
+      <view class="empty-order" wx:if="{{order.renderCurrentList(type, orderList, statusActive).length === 0}}">
+        <view class="iconfont icon-kong"></view>
+        <view>———— 暂无该类别订单 ————</view>
+      </view>
+      <view class="my-order-item"  data-id="{{item.id}}" wx:for="{{order.renderCurrentList(type, orderList, statusActive)}}">
+        <view class="helper"></view>
+        <view class="my-order-item-content">
+          <view class="status-bar">
+            <view bindtap="gotoTemple" data-temple="{{item.temple_id}}">
+              <text class="iconfont icon-simiao"></text>
+              <text class="temple-name">{{item.temple_name}}</text>
+              <text class="iconfont icon-myIcon_right"></text>
+            </view>
+            <text class="temple-status">订单{{item.status}}</text>
+          </view>
+          <view class="goods-info">
+            <image src="{{item.product_info.image}}" />
+            <view class="goods-order-info">
+              <view>
+                <view class="goods-name">{{item.product_info.name}} x {{type === 'ribbon' ? item.days : item.per_data_number}} {{type === 'ribbon' ? '天' : '盏'}}</view>
+                <view class="goods-unit">{{util.handleAmount(item.product_info.price)}} {{type === 'ribbon' ? '元 / 天' : '元 / 盏'}}</view>
+              </view>
+              <view>
+                <view class="qf-label">{{!!item.patron_info.beneficiary_name === false ? '祈福' : '送福'}}</view>
+                <view>合计：<text>¥ {{util.handleAmount(item.amount)}}</text></view>
+              </view>
+            </view>
+          </view>
+          <view class="btns {{type === 'light' ? 'light-btns' : ''}}">
+            <view wx:if="{{(type === 'light' && item.status === '待支付') || (type === 'light' && item.status === '已取消')}}">共 {{item.days}} 天</view>
+            <view wx:if="{{(type === 'light' && item.status !== '待支付' && item.status !== '已取消')}}">{{ item.date }}</view>
+            <view>
+              <button class="buy-again" bindtap="gotoTemple" data-temple="{{item.temple_id}}" wx:if="{{item.status === '已结束'}}" hover-class="buy-again-hover">再次购买</button>
+              <button class="go-detail" hover-class="go-detail-hover" bindtap="handleDetail"
+                data-id="{{item.id}}" data-templeId="{{item.temple_id}}" data-date="{{item.date}}">
+                查看详情
+              </button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+<float-btn />

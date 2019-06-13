@@ -1,0 +1,140 @@
+<wxs module="handleIndex">
+var r = getRegExp('\n', 'g')
+var handleText = function (s) {
+  return s.replace(r, '，')
+}
+var getType = function (type) {
+  switch (type) {
+    case 'GD':
+      return '供灯'
+    case 'FD':
+      return '福带'
+    case 'CS':
+      return '长生牌位'
+    case 'WS':
+      return '往生牌位'
+    case 'CF':
+      return '众筹'
+  }
+}
+var getVerb = function (type) {
+  switch (type) {
+    case 'GD':
+    case 'FD':
+    case 'CS':
+      return '祈'
+    case 'WS':
+      return '供奉'
+    case 'CF':
+      return '参与'
+  }
+}
+var handleName = function (s) {
+  var name = []
+  for (var i = 0; i < s.length; i++) {
+    if (i === 0) name[i] = s[i]
+    else name[i] = '*'
+  }
+  return name.join('')
+}
+var handleCash = function (m) {
+  var cash = +(+m / 100)
+  return cash.toFixed(2)
+}
+var handleLog = function (arr) {
+  if (!arr.length) return []
+  var result = arr.map(function (v, i) {
+    var obj = {
+      name: handleName(v.nickName),
+      count: v.scores,
+      verb: getVerb(v.type),
+      type: getType(v.type)
+    }
+    return obj
+  })
+  return result
+}
+module.exports.handleText = handleText
+module.exports.handleLog = handleLog
+module.exports.handleCash = handleCash
+</wxs>
+<scroll-view class="container" scroll-y="{{alertMsg === ''}}" lower-threshold="50">
+  <swiper autoplay="true" interval="5000" circular="true" indicator-dots="true">
+    <block wx:for="{{banners}}" wx:key="*this">
+      <swiper-item bindtap="handleBannerTap" data-url="{{item.link}}">
+        <image src="{{item.image}}" mode="aspectFill" />
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class="info-container">
+    <view class="notice">
+      <view>
+        <text class="iconfont icon-gonggao"></text>
+        <text class="title">公告</text>
+      </view>
+      <swiper class="notice-content"
+        bindtap="handleAnnouncementTap" bindchange="handleAnnouncementChange"
+        data-index="{{announcementsIndex}}"
+        vertical="true" autoplay="true" circular="true" interval="3000">
+        <block wx:for="{{announcementsContent}}" wx:key="*this">
+          <swiper-item>
+            <view>{{item.title}}</view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class="date" bindtap="handleDateTap">
+      <view>
+        <text class="iconfont icon-13"></text>
+        <text class="title">{{todayDate}}</text>
+      </view>
+      <view class="lunar">
+        <view class="icon">农</view>
+        <text>{{date[0]}}</text>
+      </view>
+      <view class="special" wx:if="{{date.length === 2}}">
+        <view class="icon">殊</view>
+        <text>{{handleIndex.handleText(date[1])}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="merits">
+    <view class="title">
+      <text class="title-name">功德芳茗</text>
+      <!-- <text class="iconfont icon-myIcon_right"></text> -->
+    </view>
+    <view class="merit-content">
+      <swiper class="merit-content-swiper" display-multiple-items="{{handleIndex.handleLog(meritsList).length >= 5 ? 5 : handleIndex.handleLog(meritsList).length}}" vertical="true" autoplay="false" circular="true" interval="3000">
+        <swiper-item wx:for="{{handleIndex.handleLog(meritsList)}}" wx:key="*this">
+          <view>{{item.name}} {{item.verb}}{{item.type}}获得<text class="strong">{{handleIndex.handleCash(item.count)}}</text>功德值</view>
+        </swiper-item>
+      </swiper>
+    </view>
+  </view>
+  <view class="temple-show">
+    <view class="temple-title">寺庙展示</view>
+    <view class="temple-item" bindtap="handleTempleTap" data-temple="{{item}}" wx:for="{{templeList}}" wx:key="{{item.id}}">
+      <swiper circular="true" autoplay="true" interval="5000">
+        <block wx:for="{{item.images}}" wx:key="*this">
+          <swiper-item>
+            <image src="{{item}}" mode="scaleToFill" />
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="temple-info-container">
+        <text class="iconfont icon-simiao"></text>
+        <view>
+          <text class="temple-name">{{item.name}}</text>
+          <text class="temple-addr">{{item.address}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <alert
+    wx:if="{{alertMsg !== ''}}"
+    bind:hideEvent="hideAlert"
+    message="{{alertMsg}}"
+  />
+</scroll-view>
+<float-btn />
+

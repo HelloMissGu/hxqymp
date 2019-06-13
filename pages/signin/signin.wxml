@@ -1,0 +1,40 @@
+<view class="signin-container">
+  <view class="signin-info-container">
+    <view class="signin-info-title">
+      <text class="merit">今日签到可获得 <text class="strong">{{signinScore}}</text> 功德值</text>
+      <navigator open-type="switchTab" url="/pages/my/my" hover-class="navigator-hover">
+        <text class="merit-btn">查看我的功德值<text class="iconfont icon-myIcon_right"></text></text>
+      </navigator>
+    </view>
+    <view class="signin-days-info">
+      <view class="signin-days-info-item">
+        <view class="helper"></view>
+        <view class="signin-days-info-title">累计签到</view>
+        <view class="signin-days-info-count"><text>{{totalSign}}</text> 天</view>
+      </view>
+      <view class="signin-days-info-item">
+        <view class="helper"></view>
+        <view class="signin-days-info-title">累计连续签到</view>
+        <view class="signin-days-info-count"><text>{{continuousSign}}</text> 天</view>
+      </view>
+    </view>
+  </view>
+  <view class="divider"></view>
+  <view class="signin-poem-container">
+    <view class="poem-title">{{poem.title}}<view animation="{{titleAnimationData}}" class="poem-content-strong">{{poem.title}}</view></view>
+    <view class="poem-author">{{poem.author}}<view animation="{{authorAnimationData}}" class="poem-content-strong">{{poem.author}}</view></view>
+    <view class="poem-content" wx:for-index="poemIndex" wx:for="{{poem.poemContent}}" wx:key="*this">
+      {{item}}
+      <view animation="{{contentAnimationData[poemIndex]}}" class="poem-content-strong">{{item}}</view>
+    </view>
+    <button class="{{btnDisabled ? 'disable-btn sign-btn' : 'sign-btn'}}" bindtap="signin" hover-class="button-hover"><text class="iconfont icon-qiandao"></text>立即签到</button>
+    <view class="tip">注：{{tip}}</view>
+  </view>
+</view>
+<alert
+  wx:if="{{alertMsg !== ''}}"
+  bind:hideEvent="hideAlert"
+  message="{{alertMsg}}"
+  lockScroll="true"
+/>
+<float-btn />

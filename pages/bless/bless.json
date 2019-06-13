@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "float-btn": "../../components/MusicControl/musicControl"
+  }
+}

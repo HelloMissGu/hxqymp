@@ -1,0 +1,67 @@
+@import '../../assets/iconfont/font.wxss';
+.float-btn {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 50%;
+  border: 1px solid rgba(139, 98, 62, .6);
+  background: rgba(139, 98, 62, .4);
+  position: fixed;
+  bottom: 240rpx;
+  right: -90rpx;
+  color: #fff;
+  font-size: 32rpx;
+}
+.music-btn .text.iconfont {
+  font-size: 48rpx;
+}
+.float-btn .music-btn {
+  width: 90rpx;
+  height: 90rpx;
+  border-top-left-radius: 90rpx !important;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(139, 98, 62, .4);
+  line-height: 90rpx;
+}
+.float-btn .music-btn,
+.float-btn .reg-btn {
+  color: white;
+  border-radius: 0;
+  border: none;
+}
+.music-btn.float-btn-hover {
+  background: rgba(139, 98, 62, .8);
+  border-top-left-radius: 90rpx;
+  color: white;
+}
+.music-btn .delete-line {
+  width: 48rpx;
+  height: 2px;
+  background: #A41522;
+  position: absolute;
+  transform: rotate(50deg);
+  top: 44rpx;
+  left: 32rpx;
+}
+.reg-btn {
+  width: 90rpx;
+  height: 90rpx;
+  border-bottom-left-radius: 90rpx;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: rgba(139, 98, 62, .4);
+  line-height: 90rpx;
+}
+.reg-btn.float-btn-hover {
+  background: rgba(139, 98, 62, .8);
+  border-bottom-left-radius: 90rpx;
+  color: white;
+}
+.music-btn .text {
+  margin-left: 6rpx;
+}
+.reg-btn .text {
+  margin-left: 8rpx;
+}

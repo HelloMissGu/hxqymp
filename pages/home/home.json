@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "首页",
+  "usingComponents": {
+    "alert": "../../components/Alert/alert",
+    "float-btn": "../../components/MusicControl/musicControl"
+  }
+}

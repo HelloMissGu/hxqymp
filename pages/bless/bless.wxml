@@ -1,0 +1,51 @@
+<view class="bless-container">
+  <view class="bless-flow-container">
+    <view class="bless-flow-title">供养流程</view>
+    <view class="bless-guide-container">
+      <view wx:for="{{flowList}}" wx:for-index="guideIndex" class="bless-guide-item">
+        <view class="{{flowActive === guideIndex ? 'active' : ''}}">{{guideIndex + 1}}</view>
+        <text class="iconfont icon-myIcon_right"></text>
+        <text class="iconfont icon-myIcon_right"></text>
+      </view>
+    </view>
+    <scroll-view scroll-with-animation="true" scroll-x="true" bindscroll="handleFlowScroll" class="bless-flow-content-container">
+      <view style="display: flex; align-items: flex-start;">
+        <view class="bless-flow-content-left"></view>
+        <view wx:for="{{flowList}}" wx:for-index="contentIndex" class="bless-flow-content-item {{flowActive === contentIndex ? 'active' : ''}}">
+          <image src="{{item.image}}" mode="scaleToFill"/>
+          <text>{{item.content}}</text>
+        </view>
+        <view class="bless-flow-content-right"></view>
+      </view>
+    </scroll-view>
+  </view>
+  <view class="divider"></view>
+  <view class="bless-type-container">
+    <view class="bless-type-title">供养类型</view>
+    <view class="bless-type-list">
+      <view wx:for="{{typeListRender}}" wx:for-index="typeIndex" wx:key="*this" bindtap="handleItem" data-index="{{typeIndex}}"  class="bless-type-item {{typeActive === typeIndex ? 'item-active' : ''}}">
+        <view class="helper"></view>
+        <image src="{{item.image}}" mode="" />
+        <view class="bless-type-item-content">
+          <view class="bless-type-item-title">
+            <text class="item-name">{{item.name}}</text>
+            <text class="item-unitprice">{{item.price / 100}}{{TYPEUNIT}}</text>
+          </view>
+          <view class="bless-type-item-intro">{{item.describe}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="mask" bindtap="hideMask" wx:if="{{typeList.length > 3 && maskShow}}">
+      <text class="iconfont icon-myIcon_right"></text>
+    </view>
+  </view>
+  <view class="divider"></view>
+  <view class="bless-intro-container">
+    <view class="bless-intro-title">{{INTROTITLE}}</view>
+    <view class="bless-intro-content">
+      <text wx:for="{{typeIntro[TYPE]}}">{{item}}</text>
+    </view>
+  </view>
+  <button disabled="{{typeActive === '' ? true : false}}"  typeActive bindtap="handleBless"><text>发心祈福</text></button>
+</view>
+<float-btn />

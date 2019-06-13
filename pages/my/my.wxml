@@ -1,0 +1,63 @@
+<wxs module="handleMy">
+  var handleCash = function (m) {
+    var cash = +(+m / 100)
+    return cash.toFixed(2)
+  }
+  module.exports.handleCash = handleCash
+</wxs>
+<view class="my-container">
+  <view class="my-info-container">
+    <image src="{{userAvatar}}" />
+    <view class="name-container">
+      <!-- 昵称 -->
+      <view class='edit-name'>
+        <input class="name" bindblur='handleUserName' value="{{userName}}" focus="{{focus}}"/>
+      </view>
+      <!-- <span class="iconfont icon-bianji" bindtap='bindNameTap'></span> -->
+      <view class="merit">
+        <text class="iconfont icon-xianglu"></text>
+        <text> {{handleMy.handleCash(merit)}} 功德值</text>
+      </view>
+    </view>
+  </view>
+  <view class="menu-list">
+    <view class="menu-list-container">
+      <view class="helper"></view>
+      <navigator url="/pages/myOrders/myOrders" hover-class="navigator-hover">
+        <view class="menu-list-item">
+          <text>祈福福单</text>
+          <text class="iconfont icon-myIcon_right"></text>
+        </view>
+      </navigator>
+      <navigator url="/pages/myBrand/myBrand" hover-class="navigator-hover">
+        <view class="menu-list-item">
+          <text>供奉牌位</text>
+          <text class="iconfont icon-myIcon_right"></text>
+        </view>
+      </navigator>
+      <navigator url="/pages/myDonate/myDonate" hover-class="navigator-hover">
+        <view class="menu-list-item">
+          <text>我参与的共修</text>
+          <text class="iconfont icon-myIcon_right"></text>
+        </view>
+      </navigator>
+      <navigator url="/pages/userList/userList" hover-class="navigator-hover">
+        <view class="menu-list-item">
+          <text>缘主信息</text>
+          <text class="iconfont icon-myIcon_right"></text>
+        </view>
+      </navigator>
+      <view class="menu-list-item">
+        <text>帮助中心</text>
+        <text class="iconfont icon-myIcon_right"></text>
+      </view>
+    </view>
+  </view>
+</view>
+<alert
+  wx:if="{{alertMsg !== ''}}"
+  bind:hideEvent="hideAlert"
+  message="{{alertMsg}}"
+  lockScroll="true"
+/>
+<float-btn />

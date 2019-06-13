@@ -1,0 +1,86 @@
+<wxs module="handleCalendar">
+var handleLunar = function (array) {
+  var len = array.length
+  for (var i = 0; i < len; i++) {
+    if (array[i][0].length === 6) {
+      if (array[i][0].substring(4, 6) === '初一') {
+        array[i][0] = array[i][0].substring(2, 4)
+      } else {
+        array[i][0] = array[i][0].substring(4, 6)
+      }
+    } else {
+      if (array[i][0].substring(5, 7) === '初一') {
+        array[i][0] = array[i][0].substring(2, 5)
+      } else {
+        array[i][0] = array[i][0].substring(5, 7)
+      }
+    }
+  }
+  return array
+}
+var getMonth = function (currentDate) {
+  var date = getDate(currentDate)
+  return date.getFullYear() + ' 年 ' + (date.getMonth() + 1) + ' 月'
+}
+var isToday = function (currentDate, index) {
+  var targetDate = getDate(currentDate)
+  var nowDate = getDate()
+  var targetDateStr = targetDate.getFullYear() + '-' + (targetDate.getMonth() + 1) + '-' + (index + 1)
+  var nowDateStr = nowDate.getFullYear() + '-' + (nowDate.getMonth() + 1) + '-' + nowDate.getDate()
+  return targetDateStr === nowDateStr
+}
+module.exports.handleLunar = handleLunar
+module.exports.getMonth = getMonth
+module.exports.isToday = isToday
+</wxs>
+<view class="calendar">
+  <view class="calendar-container">
+    <view class="calendar-header-container">
+      <text bindtap="_changeMonth" data-value="-1" class="iconfont icon-myIcon_right prev-month"></text>
+      <text class="month-title">{{handleCalendar.getMonth(currentDate)}}</text>
+      <text bindtap="_changeMonth" data-value="1" class="iconfont icon-myIcon_right next-month"></text>
+    </view>
+    <view class="divider"></view>
+    <view class="calendar-body-container">
+      <view class="body-title"><text wx:for="{{calendarTitle}}">{{item}}</text></view>
+      <view class="calendar-body">
+        <view class="calendar-body-item" wx:for="{{paddingArr}}"></view>
+        <view bindtap="handleCalendarItem"
+          class="calendar-body-item {{item[1] ? 'item-lunar' : ''}} {{handleCalendar.isToday(currentDate, dateIndex) ? 'choose-active' : ''}}"
+          wx:for="{{handleCalendar.handleLunar(dateList)}}"
+          wx:for-index="dateIndex" data-index="{{dateIndex}}" data-isChosen="{{item[2]}}">
+          <view>
+            <text>{{dateIndex + 1}}</text>
+            <text>{{handleCalendar.isToday(currentDate, dateIndex) ? '今日' : item[0]}}</text>
+          </view>
+          <text class="iconfont icon-lianhua" wx:if="{{item[2] === true}}" style="font-weight: normal"></text>
+        </view>
+      </view>
+    </view>
+    <view class="calendar-footer-container" wx:if="{{type === 'light'}}">
+      <button class="calendar-btn" hover-class="calendar-btn-hover" bindtap="_handleQuickChoose" data-type="qy">全月</button>
+      <button class="calendar-btn" hover-class="calendar-btn-hover" bindtap="_handleQuickChoose" data-type="cy">初一/十五</button>
+    </view>
+    <button class="confirm-btn" bindtap="_confirmDates"><text class="iconfont icon-13"></text>确认选择</button>
+  </view>
+</view>
+<view class="prompt" wx:if="{{promptData !== null}}" bindtap="_hidePrompt">
+  <view catchtap="true">
+    <view class="prompt-icon"><text class="iconfont icon-fobiaozhi"></text></view>
+    <view class="prompt-content">
+      <view class="prompt-lunar">{{promptData.date}} {{promptData.lunar}} {{promptData.weekday}}</view>
+      <view class="prompt-special">{{promptData.special}}</view>
+    </view>
+    <view class="prompt-btn-container">
+      <button class="prompt-btn btn-left" catchtap="_dateChoose">{{promptBtnType ? '取消该日' : '选择该日'}}</button>
+      <button class="prompt-btn btn-right" bindtap="_hidePrompt">关闭</button>
+    </view>
+  </view>
+</view>
+<alert
+  wx:if="{{alertMsg !== ''}}"
+  bind:hideEvent="hideAlert"
+  message="{{alertMsg}}"
+  lockScroll="true"
+/>
+<float-btn />

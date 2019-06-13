@@ -1,0 +1,241 @@
+<wxs module="handleBlessOrder">
+var util = require('../../utils/util.wxs');
+var handleEndTime = function (d, n) {
+  var date = getDate(d)
+  return util.formatTime(getDate(date.setDate(date.getDate() + (+n))))
+}
+var calcDays = function (type, timeList, timeTotal) {
+  if (type === 'light') {
+    return timeList.length
+  } else {
+    return timeTotal ? timeTotal : 0
+  }
+}
+var calcTotalMoney = function (type, blessItem, timeList, dailyLightAmount, timeTotal) {
+  var total = ''
+  if (type === 'light') {
+    if (!timeList.length || !dailyLightAmount) return '0.00'
+    total = +(blessItem.price * timeList.length * dailyLightAmount / 100)
+  } else {
+    if (!timeTotal) return '0.00'
+    total = +(blessItem.price * timeTotal / 100)
+  }
+  return total.toFixed(2)
+}
+module.exports.handleEndTime = handleEndTime
+module.exports.calcDays = calcDays
+module.exports.calcTotalMoney = calcTotalMoney
+</wxs>
+<view class="bless-order-container">
+  <view class="bless-order-item-container item-type">
+    <view class="helper"></view>
+    <view class="bless-order-item-content">
+      <navigator open-type="navigateBack" hover-class="none">
+        <view class="bless-order-item-title">
+          <text>供养类别</text>
+          <text class="iconfont icon-myIcon_right"></text>
+        </view>
+      </navigator>
+      <view class="bless-order-item-intro">
+        <image src="{{blessItem.image}}" />
+        <view>
+          <view class="type-title">
+            <text class="title">{{blessItem.name}}</text>
+            <text class="price" wx:if="{{TYPE === 'light'}}"><text>{{blessItem.price / 100}} </text> {{UNIT}}</text>
+            <view wx:else class="time-choose-bar">
+              <view bindtap="handleTimeBar" data-index="{{timebarIndex}}" wx:for="{{timeChooseBarList}}" wx:for-index="timebarIndex" class="{{ timeChooseBarIndex === timebarIndex ? 'time-bar-active' : ''}}">
+                {{item.label}}
+              </view>
+            </view>
+          </view>
+          <view class="bless-days">
+            <view wx:if="{{TYPE === 'light'}}"></view>
+            <text class="price" wx:if="{{TYPE !== 'light'}}"><text>{{blessItem.price / 100}} </text> {{UNIT}}</text>
+            <view>
+              <view wx:if="{{TYPE === 'light'}}">
+                <input type="number" value="{{dailyLightAmount}}" bindinput="handleDailyLightsInput" placeholder-class="bless-day-placeholder" placeholder="请填写数量" />盏/天
+              </view>
+              <view wx:if="{{TYPE !== 'light'}}">
+                <input wx:if="{{TYPE !== 'light'}}" type="number" value="{{timeTotal}}" bindinput="handleDaysInput" placeholder-class="bless-day-placeholder" placeholder="请填写数量" />天
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="bless-order-item-container item-time">
+    <view class="helper"></view>
+    <view class="bless-order-item-content">
+      <view class="bless-order-item-title" bindtap='showCalendar'>
+        <text>祈福时间</text>
+        <view>
+          <text class="choose-time-tip" wx:if="{{(startTime === '' && TYPE !== 'light') || (timeList.length === 0 && TYPE === 'light')}}">选择您要祈福的时间</text>
+          <text class="have-chosen-time" wx:if="{{TYPE === 'light' && timeList.length !== 0}}">已选择 <text>{{timeList.length}}</text> 天</text>
+          <text class="choose-time-tip" wx:if="{{TYPE !== 'light' && startTime !== ''}}">重新选择祈福的时间</text>
+          <text class="iconfont icon-myIcon_right"></text>
+        </view>
+      </view>
+      <view class="bless-order-item-list">
+        <view class="empty-list" wx:if="{{(startTime === '' && TYPE !== 'light') || (timeList.length === 0 && TYPE === 'light')}}">
+          暂无祈福日期列表
+        </view>
+        <view class="light-time-list" wx:if="{{TYPE === 'light' && timeList.length}}">
+          <view class="light-time-item" wx:for="{{timeList}}">
+            <view class="date-tip">
+              <text>{{item.date}}</text>
+              <view>
+                <view class="lunar" wx:if="{{item.lunar}}">农</view>
+                <view class="special" wx:if="{{item.special}}">殊</view>
+              </view>
+            </view>
+            <view class="date-detail">
+              {{item.lunar ? item.lunar + '。' : ''}}{{item.special ? item.special : ''}}
+            </view>
+            <text bindtap="deleteChooseTimeItem" data-time="{{item}}" class="iconfont icon-shanchu1"></text>
+          </view>
+        </view>
+        <view class="bless-time-range" wx:if="{{TYPE !== 'light' && startTime}}">
+          <view class="time-block">
+            <text class="time-label">开始时间</text>
+            <text class="time-value">{{startTime}}</text>
+          </view>
+          <view class="time-amount">共 <text>{{timeTotal}}</text> 天</view>
+          <view class="time-block">
+            <text class="time-label">结束时间</text>
+            <text class="time-value">{{handleBlessOrder.handleEndTime(startTime, timeTotal - 1)}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="bless-order-item-container item-user">
+    <view class="helper"></view>
+    <view class="bless-order-item-content">
+      <view class="bless-order-item-title">
+        <text>{{TYPE === 'brand' ? '牌位信息' : '缘主信息'}}</text>
+        <text class="iconfont icon-xinxi"></text>
+      </view>
+      <view class="user-type-bar" wx:if="{{TYPE !== 'brand'}}">
+        <view bindtap="handleUserType" data-usertype="qf" class="{{userType === 'qf' ? 'user-active' : ''}}">祈福</view>
+        <view bindtap="handleUserType" data-usertype="sf" class="{{userType === 'sf' ? 'user-active' : ''}}">送福</view>
+      </view>
+      <view class="user-form-qf" wx:if="{{TYPE !== 'brand' && userType === 'qf'}}">
+        <view>
+          <text class="label">姓名</text>
+          <input bindinput="handleQfUserName" type="text" value="{{qfUserName}}" placeholder-style="color: rgba(139, 98, 62, .4);" placeholder="请输入或选择缘主信息"/>
+          <text bindtap="showUserList" data-type="qf" class="iconfont icon-ren"></text>
+        </view>
+        <view>
+          <text class="label">地址</text>
+          <picker mode="region" bindchange="handleQfRegionChange" value="{{qfRegion}}">
+            <view class="picker-placeholder" wx:if="{{qfRegion.length === 0}}">请选择祈福人地址</view>
+            <view class="picker">{{qfRegion}}</view>
+          </picker>
+        </view>
+        <view>
+          <text class="label textarea-label">祈福语</text>
+          <textarea disabled="{{TYPE === 'ribbon'}}" hidden="{{alertMsg}}" bindinput="handleQfBless" value="{{qfBless}}" placeholder-style="color: rgba(139, 98, 62, .4);" placeholder="请输入或选择祈福语（30字以内）" maxlength="30"/>
+          <picker wx:if="{{TYPE !== 'ribbon'}}" class="bless-picker" bindchange="handleQfPickerBless" range-key="title" range="{{TYPE === 'light' ? lightTemplates :blessItem.templates}}">
+            <text class="iconfont icon-communicate"></text>
+          </picker>
+        </view>
+      </view>
+      <view class="user-form-sf" wx:if="{{TYPE !== 'brand' && userType === 'sf'}}">
+        <view>
+          <text class="label">被送福人</text>
+          <input bindinput="handleSfedUserName" value="{{sfedUserName}}" placeholder-style="color: rgba(139, 98, 62, .4);" placeholder="请输入或选择缘主信息"/>
+          <text bindtap="showUserList" data-type="sfed" class="iconfont icon-ren"></text>
+        </view>
+        <view>
+          <text class="label">被送福人地址</text>
+          <picker mode="region" bindchange="handleSfedRegionChange" value="{{sfedRegion}}">
+            <view class="picker-placeholder" wx:if="{{sfedRegion.length === 0}}">请选择被送福人地址</view>
+            <view class="picker">{{sfedRegion}}</view>
+          </picker>
+        </view>
+        <view>
+          <text class="label">送福人</text>
+          <input bindinput="handleSfUserName" value="{{sfUserName}}" placeholder-style="color: rgba(139, 98, 62, .4);" placeholder="请输入或选择缘主信息"/>
+          <text bindtap="showUserList" data-type="sf" class="iconfont icon-ren"></text>
+        </view>
+        <view>
+          <text class="label">送福人地址</text>
+          <picker mode="region" bindchange="handleSfRegionChange" value="{{sfRegion}}">
+            <view class="picker-placeholder" wx:if="{{sfRegion.length === 0}}">请选择送福人地址</view>
+            <view class="picker">{{sfRegion}}</view>
+          </picker>
+        </view>
+        <view>
+          <text class="label textarea-label">祈福语</text>
+          <textarea disabled="{{TYPE === 'ribbon'}}" bindinput="handleSfBless" value="{{sfBless}}" hidden="{{alertMsg}}" placeholder-style="color: rgba(139, 98, 62, .4);" placeholder="请输入或选择祈福语（30字以内）" maxlength="30"/>
+          <picker wx:if="{{TYPE !== 'ribbon'}}" class="bless-picker" bindchange="handleSfPickerBless" range-key="title" range="{{TYPE === 'light' ? lightTemplates :blessItem.templates}}">
+            <text class="iconfont icon-communicate"></text>
+          </picker>
+        </view>
+      </view>
+      <view class="user-form-cs" wx:if="{{TYPE === 'brand' && blessItem.type === 'CS'}}">
+        <view>
+          <text class="label">祈福人</text>
+          <input bindinput="handleQfUserName" value="{{qfUserName}}" placeholder-style="color: rgba(139, 98, 62, .4);" placeholder="请输入或选择缘主信息"/>
+          <text bindtap="showUserList" data-type="qf" class="iconfont icon-ren"></text>
+        </view>
+        <view>
+          <text class="label">祈福人地址</text>
+          <picker mode="region" bindchange="handleQfRegionChange" value="{{qfRegion}}">
+            <view class="picker-placeholder" wx:if="{{qfRegion.length === 0}}">请选择祈福人地址</view>
+            <view class="picker">{{qfRegion}}</view>
+          </picker>
+        </view>
+        <view>
+          <text class="label textarea-label">祈福语</text>
+          <picker class="bless-cs-picker" bindchange="handleQfPickerBless" range-key="title" range="{{TYPE === 'light' ? lightTemplates :blessItem.templates}}">
+            <view class="picker-placeholder" wx:if="{{qfBless === ''}}">请选择祈福语</view>
+            <view class="picker">{{qfBless}}</view>
+          </picker>
+        </view>
+      </view>
+      <view class="user-form-ws" wx:if="{{TYPE === 'brand' && blessItem.type === 'WS'}}">
+        <view>
+          <text class="label">超度人</text>
+          <input bindinput="handleSfedUserName" value="{{sfedUserName}}" placeholder-style="color: rgba(139, 98, 62, .4);" placeholder="请输入缘主信息"/>
+        </view>
+        <view>
+          <text class="label">超度人地址</text>
+          <picker mode="region" bindchange="handleSfedRegionChange" value="{{sfedRegion}}">
+            <view class="picker-placeholder" wx:if="{{sfedRegion.length === 0}}">请选择超度人地址</view>
+            <view class="picker">{{sfedRegion}}</view>
+          </picker>
+        </view>
+        <view>
+          <text class="label">阳上人</text>
+          <input bindinput="handleSfUserName" value="{{sfUserName}}" placeholder-style="color: rgba(139, 98, 62, .4);" placeholder="请输入缘主信息"/>
+        </view>
+        <view>
+          <text class="label">阳上人地址</text>
+          <picker mode="region" bindchange="handleSfRegionChange" value="{{sfRegion}}">
+            <view class="picker-placeholder" wx:if="{{sfRegion.length === 0}}">请选择阳上人地址</view>
+            <view class="picker">{{sfRegion}}</view>
+          </picker>
+        </view>
+      </view>
+    </view>
+  </view>
+  <cover-view class="bless-btn" hidden="{{alertMsg}}">
+    <cover-view class="bless-info">
+      <cover-view>¥ {{handleBlessOrder.calcTotalMoney(TYPE, blessItem, timeList, dailyLightAmount, timeTotal)}} </cover-view>
+      <cover-view>共计 {{handleBlessOrder.calcDays(TYPE, timeList, timeTotal)}} 天</cover-view>
+    </cover-view>
+    <cover-view class="bless" bindtap="bless">去供养</cover-view>
+  </cover-view>
+
+  <alert
+    wx:if="{{alertMsg !== ''}}"
+    bind:hideEvent="hideAlert"
+    message="{{alertMsg}}"
+    lockScroll="true"
+  />
+
+</view>
+
+<float-btn />

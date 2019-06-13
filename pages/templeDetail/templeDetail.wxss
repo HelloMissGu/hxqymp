@@ -1,0 +1,333 @@
+@import '../../assets/iconfont/font.wxss';
+page {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+  background: #F9EEDA url(https://gongde-assets.oss-cn-shenzhen.aliyuncs.com/texture.png) repeat repeat;
+}
+swiper {
+  width: 100%;
+  height: 280rpx;
+}
+swiper image {
+  width: 100%;
+  height: 100%;
+}
+.choose-bar {
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  justify-content: space-around;
+}
+.choose-bar-item {
+  color: #3C160F;
+  font-size: 30rpx;
+  line-height: 100rpx;
+}
+.choose-bar-item.active {
+  color: #A41522;
+  font-weight: bold;
+  position: relative;
+}
+.choose-bar-item.active::before {
+  content: '';
+  width: 140rpx;
+  height: 2px;
+  position: absolute;
+  bottom: 0;
+  background: #A41522;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.divider-m {
+  width: 100%;
+  height: 4rpx;
+  background: #F3EFEB;
+}
+/* ------------- 商品列表 -------------- */
+.show-list {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 32rpx;
+}
+/* ------------- 供灯列表 -------------- */
+.light, .brand {
+  margin-bottom: 40rpx;
+}
+.light-title, .brand-title, .ribbon-title {
+  width: 100%;
+  display: flex;
+  padding-bottom: 12rpx;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(139, 98, 62, .6);
+}
+.light-title text, .brand-title text, .ribbon-title text {
+  color: #382F30;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+.light-title button, .brand-title button, .ribbon-title button {
+  display: inline-block;
+  margin: 0;
+  color: #F3EFEB;
+  font-size: 28rpx;
+  width: 150rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  background: #A41522;
+}
+.light-title .light-button-hover,
+.brand-title .brand-button-hover,
+.ribbon-title .ribbon-button-hover {
+  background-color: rgb(107, 14, 21);
+}
+.light-list, .ribbon-list {
+  margin-top: 24rpx;
+  display: flex;
+  overflow: auto;
+  position: relative;
+  -webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%);
+}
+.light-list::-webkit-scrollbar,
+.ribbon-list::-webkit-scrollbar {
+  display:none
+}
+.light-list view, .ribbon-list view {
+  padding: 0 12rpx;
+  flex: 1 0 120rpx;
+  display: flex;
+  flex-direction: column;
+  color: #8B623E;
+  font-size: 26rpx;
+  text-align: center;
+  border-right: 1px dashed rgba(139, 98, 62, .3);
+}
+.light-list view .iconfont, .ribbon-list view .iconfont {
+  color: #A41522;
+  margin-bottom: 16rpx;
+}
+/* ------------- 牌位列表 -------------- */
+.brand-list {
+  display: flex;
+  margin-top: 12rpx;
+  justify-content: space-between;
+}
+.brand-item {
+  width: 48%;
+  box-sizing: border-box;
+  padding: 12rpx;
+}
+.brand-item-title {
+  color: #A41522;
+  font-size: 28rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.brand-item-title .iconfont {
+  font-size: 24rpx;
+  margin-right: 12rpx;
+}
+.brand-item-content {
+  color: #885A26;
+  font-size: 26rpx;
+  text-align: justify;
+  margin-top: 12rpx;
+  position: relative;
+  line-height: 32rpx;
+}
+.brand-list .brand-item:nth-child(1) .brand-item-content::before {
+  content: '';
+  width: 1px;
+  height: 100%;
+  position: absolute;
+  right: -28rpx;
+  border-right: 1px dashed rgba(139, 98, 62, .3);
+}
+.divider-l {
+  width: 100%;
+  height: 8rpx;
+  background: #F3EFEB;
+}
+/* ------------- 直播列表 -------------- */
+.live-container, .temple-info-container {
+  width: 100%;
+  margin-top: 8rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 18rpx 32rpx 80rpx 32rpx;
+}
+.live-title, .temple-info-title {
+  color: #382F30;
+  font-size: 32rpx;
+  font-weight: bold;
+  position: relative;
+  text-align: center;
+  display: inline-block;
+  margin: 0 auto 16rpx auto;
+}
+.live-title::before, .temple-info-title::before, .live-title::after, .temple-info-title::after {
+  background: url(https://gongde-assets.oss-cn-shenzhen.aliyuncs.com/cloud.png);
+}
+.live-title::before, .temple-info-title::before {
+  content: '';
+  position: absolute;
+  width: 64rpx;
+  height: 28rpx;
+  left: -80rpx;
+  top: 8rpx;
+  background-size: 64rpx 28rpx;
+}
+.live-title::after, .temple-info-title::after {
+  content: '';
+  position: absolute;
+  width: 64rpx;
+  height: 28rpx;
+  right: -80rpx;
+  top: 8rpx;
+  background-size: 64rpx 28rpx;
+  transform: scale(-1, 1);
+}
+.live-item-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 12rpx;
+}
+.empty-video {
+  text-align: center;
+  color: #382F30;
+  font-size: 28rpx;
+  margin: 48rpx auto 24rpx auto;
+}
+.empty-video .iconfont {
+  font-size: 64rpx;
+  margin-bottom: 16rpx;
+}
+.live-item {
+  width: 320rpx;
+  height: 280rpx;
+  position: relative;
+  border-radius: 12rpx;
+  margin-bottom: 24rpx;
+}
+.live-item image {
+  border-radius: 12rpx;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+}
+.playicon {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 128rpx;
+}
+.live-detail {
+  width: 100%;
+  height: 72rpx;
+  box-sizing: border-box;
+  padding: 0 12rpx;
+  line-height: 72rpx;
+  background: rgba(60, 22, 15, .9);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  border-bottom-left-radius: 12rpx;
+  border-bottom-right-radius: 12rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.live-name {
+  color: #F3EFEB;
+  font-size: 28rpx;
+}
+.icon-zuiduorenshu {
+  color: #F3EFEB;
+  font-size: 24rpx;
+  font-weight: bold;
+  margin-right: 6rpx;
+}
+.strong {
+  font-weight: bold;
+  font-size: 22rpx;
+  color: #A41522;
+}
+/* ------------- 寺庙资料 -------------- */
+.sub-temple-info-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #8B623E;
+  margin-top: 24rpx;
+}
+.sub-temple-info-title .iconfont {
+  font-weight: normal;
+}
+.temple-info-content, .temple-info-content view {
+  color: #382F30;
+  margin-top: 16rpx;
+}
+.temple-info-content view.wxParse-h1 {
+  font-weight: bold;
+  font-size: 32rpx;
+  margin-bottom: 32rpx;
+}
+.temple-info-content view.wxParse-h2 {
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-bottom: 32rpx;
+}
+.temple-info-content view.wxParse-p {
+  font-size: 26rpx;
+}
+.temple-info-content view.wxParse-strong {
+  font-weight: bold;
+}
+.temple-info-content view.wxParse-em {
+  font-style: italic;
+}
+.temple-info-content view.wxParse-u {
+  text-decoration: underline;
+}
+.temple-info-content view.wxParse-s {
+  text-decoration: line-through;
+}
+.temple-info-content view.wxParse-blockquote {
+  position: relative;
+  box-sizing: border-box;
+  padding-left: 12rpx;
+  font-size: 26rpx;
+}
+.temple-info-content view.wxParse-blockquote::before {
+  content: '';
+  width: 4rpx;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #3C160F;
+}
+.temple-info-content view.wxParse-li {
+  box-sizing: border-box;
+  padding-left: 2em;
+  font-size: 26rpx;
+  list-style-type: circle;
+}
+.temple-info-content view.wxParse-inline {
+  display: inline;
+}
+.temple-info-content image {
+  width: 100% !important;
+  margin: 24rpx auto;
+  border-radius: 12rpx;
+  display: block;
+}

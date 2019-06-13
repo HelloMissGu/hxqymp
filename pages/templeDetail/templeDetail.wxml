@@ -1,0 +1,111 @@
+<view class="temple-detail-container">
+  <swiper circular="true" indicator-dots="true">
+    <block wx:for="{{temple.images}}" wx:key="*this">
+      <swiper-item>
+        <image src="{{item}}" />
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class="choose-bar">
+    <view class="choose-bar-item {{type === 'bless' ? 'active' : ''}}" data-type="bless" bindtap="changeMenu">发心祈福</view>
+    <view class="choose-bar-item {{type === 'temple' ? 'active' : ''}}" data-type="temple" bindtap="changeMenu">寺庙介绍</view>
+  </view>
+  <view class="divider-m"></view>
+  <view wx:if="{{type==='bless'}}">
+    <view class="show-list">
+      <view class="light" wx:if="{{lightList.length !== 0}}">
+        <view class="light-title">
+          <text>供灯</text>
+          <navigator url="/pages/bless/bless?type=light&templeId={{temple.id}}">
+            <button hover-class="light-button-hover" type="primary" plain="{{plain}}">去祈福</button>
+          </navigator>
+        </view>
+        <view class="light-list">
+          <view wx:for="{{lightList}}" wx:key="*this">
+            <text class="iconfont icon-lianhua"></text>
+            <text>{{item.name}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="brand" wx:if="{{brandList.length !== 0}}">
+        <view class="brand-title">
+          <text>牌位</text>
+          <navigator url="/pages/bless/bless?type=brand&templeId={{temple.id}}">
+            <button hover-class="brand-button-hover" type="primary">去供奉</button>
+          </navigator>
+        </view>
+        <view class="brand-list">
+          <view class="brand-item" wx:for="{{brandList}}">
+            <view class="brand-item-title">
+              <text class="iconfont icon-lianhua"></text>
+              <text>{{item.name}}</text>
+            </view>
+            <view class="brand-item-content first">
+              {{item.describe}}
+            </view>
+          </view>
+          <!-- <view class="brand-item">
+            <view class="brand-item-title">
+              <text class="iconfont icon-lianhua"></text>
+              <text>往生莲位</text>
+            </view>
+            <view class="brand-item-content">
+              往生莲位为已故亡灵超度，敬立一切历代宗亲师长、冤亲债主、有缘众生、堕胎婴灵、地基主等牌位
+            </view>
+          </view> -->
+        </view>
+      </view>
+      <view class="ribbon" wx:if="{{ribbonList.length !== 0}}">
+        <view class="ribbon-title">
+          <text>福带</text>
+          <navigator url="/pages/bless/bless?type=ribbon&templeId={{temple.id}}">
+            <button bindtap="handleBless" data-type="ribbon" hover-class="ribbon-button-hover" type="primary" plain="{{plain}}">去祈福</button>
+          </navigator>
+        </view>
+        <view class="ribbon-list">
+          <view wx:for="{{ribbonList}}" wx:key="*this">
+            <text class="iconfont icon-lianhua"></text>
+            <text>{{item.name}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="divider-l"></view>
+    <view class="live-container">
+      <view class="live-title">祈福直播</view>
+      <view class="live-item-container">
+        <view class="empty-video" wx:if="{{temple.online_video === null || temple.online_video.length === 0}}">
+          <view class="iconfont icon-kong"></view>
+          <view>———— 暂无祈福直播信息 ————</view>
+        </view>
+        <view class="live-item" wx:if="{{temple.online_video.length !== 0}}" wx:for="{{temple.online_video}}" wx:key="*this">
+          <navigator url="/pages/out/out?url={{item.url}}" hover-class="navigator-hover">
+            <image src="{{item.image}}" />
+            <text class="playicon iconfont icon-zhibobofangshexiangjiguankanxianxing"></text>
+            <view class="live-detail">
+              <text class="live-name">{{item.title}}</text>
+              <!-- <view>
+                <text class="iconfont icon-zuiduorenshu"></text>
+                <text class="strong">{{item.watchersCount}}</text>
+              </view> -->
+            </view>
+          </navigator>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:else>
+    <view class="temple-info-container">
+      <view class="temple-info-title">{{temple.name}}</view>
+      <!-- <view class="sub-temple-info-title">
+        <text class="iconfont icon-simiao"></text>
+        {{temple.subTitle}}
+      </view> -->
+      <view class="temple-info-content">
+        <import src="../../utils/wxParse/wxParse.wxml"/>
+        <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+      </view>
+    </view>
+  </view>
+</view>
+<float-btn />

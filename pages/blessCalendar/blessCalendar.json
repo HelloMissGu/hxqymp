@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "日期选择",
+  "usingComponents": {
+    "alert": "../../components/Alert/alert",
+    "float-btn": "../../components/MusicControl/musicControl"
+  }
+}

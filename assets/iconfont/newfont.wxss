@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'iconfont';  /* project id 936209 */
+  src: url('//at.alicdn.com/t/font_936209_sdcg87hqeel.eot');
+  src: url('//at.alicdn.com/t/font_936209_sdcg87hqeel.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_936209_sdcg87hqeel.woff') format('woff'),
+  url('//at.alicdn.com/t/font_936209_sdcg87hqeel.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_936209_sdcg87hqeel.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-bianji:before { content: "\e62b"; }

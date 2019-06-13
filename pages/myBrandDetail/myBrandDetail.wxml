@@ -1,0 +1,106 @@
+<wxs module="util" src="../../utils/util.wxs" />
+<view class="my-brand-detail-container">
+  <view class="brand-detail-item">
+    <view class="helper"></view>
+    <view class="brand-detail-status">
+      <view class="brand-detail-status-title">订单{{orderDetail.status}}</view>
+      <view class="brand-detail-status-content">
+        <view><text>订单号：</text>{{orderDetail.order_no}}</view>
+        <view><text>下单时间：</text>{{orderDetail.created}}</view>
+        <view><text>订单金额：</text>¥ {{util.handleAmount(orderDetail.amount)}}</view>
+      </view>
+      <view class="brand-detail-status-feedback" wx:if="{{(orderDetail.status === '供奉中' || orderDetail.status === '已结束') && orderDetail.images && orderDetail.images.length }}">
+        <image wx:for="{{orderDetail.images}}" bindtap="previewImage" data-url="{{item}}" src="{{item}}" />
+        <view wx:if="{{orderDetail.images.length % 3 === 2}}"></view>
+      </view>
+    </view>
+  </view>
+  <view class="brand-detail-item">
+    <view class="helper"></view>
+    <view class="brand-detail-type">
+      <view class="bless-order-item-title">供养类别</view>
+      <view class="bless-order-item-intro">
+        <image src="{{orderDetail.product_info.image}}" />
+        <view>
+          <view class="type-title">
+            <text class="title">{{orderDetail.product_info.name}}</text>
+            <text class="price"><text>{{util.handleAmount(orderDetail.product_info.price)}} </text> 元 / 天</text>
+          </view>
+          <view class="order-dates">
+            <view class="date-label" wx:if="{{util.countDays(orderDetail.start_time, orderDetail.end_time) === 90}}">三个月</view>
+            <view class="date-label" wx:elif="{{util.countDays(orderDetail.start_time, orderDetail.end_time) === 180}}">半年</view>
+            <view class="date-label" wx:elif="{{util.countDays(orderDetail.start_time, orderDetail.end_time) === 365}}">一年</view>
+            <view class="date-label" wx:else style="visibility: hidden;"></view>
+            <view class="date-amounts"><text>{{util.countDays(orderDetail.start_time, orderDetail.end_time)}}</text> 天</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="brand-detail-item">
+    <view class="helper"></view>
+    <view class="bless-order-item-content">
+      <view class="bless-order-item-title">祈福时间</view>
+      <view class="bless-time-range">
+        <view class="time-block">
+          <text class="time-label">开始时间</text>
+          <text class="time-value">{{orderDetail.start_time}}</text>
+        </view>
+        <view class="time-amount">共 <text>{{util.countDays(orderDetail.start_time, orderDetail.end_time)}}</text> 天</view>
+        <view class="time-block">
+          <text class="time-label">结束时间</text>
+          <text class="time-value">{{orderDetail.end_time}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="brand-detail-item">
+    <view class="helper"></view>
+    <view class="bless-order-item-content">
+      <view class="bless-order-item-title">牌位信息</view>
+      <view wx:if="{{orderDetail.product_info.type === 'WS'}}" class="patron-info-item">
+        <text>超度人</text>
+        <text>{{orderDetail.patron_info.beneficiary_name}}</text>
+      </view>
+      <view wx:if="{{orderDetail.product_info.type === 'WS'}}" class="patron-info-item">
+        <text>超度人地址</text>
+        <text>{{orderDetail.patron_info.beneficiary_address}}</text>
+      </view>
+      <view wx:if="{{orderDetail.product_info.type === 'WS'}}" class="patron-info-item">
+        <text>阳上人</text>
+        <text>{{orderDetail.patron_info.purchaser_name}}</text>
+      </view>
+      <view wx:if="{{orderDetail.product_info.type === 'WS'}}" class="patron-info-item">
+        <text>阳上人地址</text>
+        <text>{{orderDetail.patron_info.purchaser_address}}</text>
+      </view>
+      <view wx:if="{{orderDetail.product_info.type === 'CS'}}" class="patron-info-item">
+        <text>祈福人</text>
+        <text>{{orderDetail.patron_info.purchaser_name}}</text>
+      </view>
+      <view wx:if="{{orderDetail.product_info.type === 'CS'}}" class="patron-info-item">
+        <text>祈福人地址</text>
+        <text>{{orderDetail.patron_info.purchaser_address}}</text>
+      </view>
+      <view wx:if="{{orderDetail.product_info.type === 'CS'}}" class="patron-info-item">
+        <text>祈福语</text>
+        <text>{{orderDetail.patron_info.content}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<button class="rebuy" bindtap="rebuy" wx:if="{{orderDetail.status === '已结束'}}">再次购买</button>
+<view class="continue-buy" wx:if="{{orderDetail.status === '待支付'}}">
+  <button class="cancel-buy" bindtap="cancelBuy" hover-class="cancel-buy-hover">取消支付</button>
+  <button class="go-buy" hover-class="go-buy-hover" bindtap="buy">
+    <text>¥ {{util.handleAmount(orderDetail.amount)}}</text>继续支付
+  </button>
+</view>
+
+<alert
+  wx:if="{{alertMsg !== ''}}"
+  bind:hideEvent="hideAlert"
+  message="{{alertMsg}}"
+  lockScroll="true"
+/>
+<float-btn />

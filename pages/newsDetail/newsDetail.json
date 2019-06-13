@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "法讯详情",
+  "usingComponents": {
+    "float-btn": "../../components/MusicControl/musicControl"
+  }
+}

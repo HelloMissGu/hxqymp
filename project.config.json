@@ -1,0 +1,137 @@
+{
+	"description": "项目配置文件。",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.3.0",
+	"appid": "wxbd323b6332de9c3e",
+	"projectname": "gongdemp",
+	"isGameTourist": false,
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 8,
+			"list": [
+				{
+					"id": -1,
+					"name": "法讯",
+					"pathName": "pages/news/news",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "法讯详情",
+					"pathName": "pages/newsDetail/newsDetail",
+					"query": ""
+				},
+				{
+					"id": 2,
+					"name": "寺庙详情",
+					"pathName": "pages/templeDetail/templeDetail",
+					"query": "templeId=c72756b15bb84786bb216c770f286dcb"
+				},
+				{
+					"id": -1,
+					"name": "签到页面",
+					"pathName": "pages/signin/signin",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "个人中心",
+					"pathName": "pages/my/my",
+					"query": ""
+				},
+				{
+					"id": 5,
+					"name": "祈福",
+					"pathName": "pages/bless/bless",
+					"query": "type=light"
+				},
+				{
+					"id": -1,
+					"name": "祈福单",
+					"pathName": "pages/blessOrder/blessOrder",
+					"query": ""
+				},
+				{
+					"id": 7,
+					"name": "支付结果",
+					"pathName": "pages/payResult/payResult",
+					"query": "type=brand"
+				},
+				{
+					"id": 8,
+					"name": "日历信息",
+					"pathName": "pages/blessCalendar/blessCalendar",
+					"query": "type=light"
+				},
+				{
+					"id": -1,
+					"name": "共修详情",
+					"pathName": "pages/donateDetail/donateDetail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的供奉牌位",
+					"pathName": "pages/myBrand/myBrand",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的供奉牌位详情",
+					"pathName": "pages/myBrandDetail/myBrandDetail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的共修",
+					"pathName": "pages/myDonate/myDonate",
+					"query": ""
+				},
+				{
+					"id": 14,
+					"name": "我的福单",
+					"pathName": "pages/myOrders/myOrders",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的福带详情",
+					"pathName": "pages/myRibbonDetail/myRibbonDetail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的供灯详情",
+					"pathName": "pages/myLightDetail/myLightDetail",
+					"query": ""
+				}
+			]
+		}
+	}
+}

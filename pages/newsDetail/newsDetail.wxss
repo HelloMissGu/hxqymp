@@ -1,0 +1,89 @@
+page {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+  background: #F9EEDA url(https://gongde-assets.oss-cn-shenzhen.aliyuncs.com/texture.png) repeat repeat;
+}
+text {
+  display: block;
+}
+.title-img {
+  width: 100%;
+  height: 320rpx;
+}
+.news-detail-content {
+  box-sizing: border-box;
+  padding: 0 32rpx 64rpx 32rpx;
+}
+.title {
+  color: #3C160F;
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-top: 32rpx;
+  margin-bottom: 40rpx;
+}
+.sub-title {
+  color: #382F30;
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-bottom: 28rpx;
+}
+.new-detail-html view {
+  color: #382F30;
+}
+.new-detail-html view.wxParse-h1 {
+  font-weight: bold;
+  font-size: 32rpx;
+  margin-bottom: 32rpx;
+}
+.new-detail-html view.wxParse-h2 {
+  font-weight: bold;
+  font-size: 28rpx;
+  margin-bottom: 32rpx;
+}
+.new-detail-html view.wxParse-p {
+  font-size: 26rpx;
+}
+.new-detail-html view.wxParse-strong {
+  font-weight: bold;
+}
+.new-detail-html view.wxParse-em {
+  font-style: italic;
+}
+.new-detail-html view.wxParse-u {
+  text-decoration: underline;
+}
+.new-detail-html view.wxParse-s {
+  text-decoration: line-through;
+}
+.new-detail-html view.wxParse-blockquote {
+  position: relative;
+  box-sizing: border-box;
+  padding-left: 12rpx;
+  font-size: 26rpx;
+}
+.new-detail-html view.wxParse-blockquote::before {
+  content: '';
+  width: 4rpx;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #3C160F;
+}
+.new-detail-html view.wxParse-li {
+  box-sizing: border-box;
+  padding-left: 2em;
+  font-size: 26rpx;
+  list-style-type: circle;
+}
+.new-detail-html view.wxParse-inline {
+  display: inline;
+}
+.new-detail-html image {
+  margin: 0 auto;
+  border-radius: 12rpx;
+  margin-top: 28rpx;
+  margin-bottom: 28rpx;
+}

@@ -1,0 +1,227 @@
+@import '../../assets/iconfont/font.wxss';
+page {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+  background: #F9EEDA url(https://gongde-assets.oss-cn-shenzhen.aliyuncs.com/texture.png) repeat repeat;
+}
+.my-brand-container {
+  height: 100%;
+}
+.divider {
+  width: 100%;
+  height: 6rpx;
+  background: #F3EFEB;
+  position: fixed;
+  top: 82rpx;
+  left: 0;
+  z-index: 10;
+  margin-bottom: 8rpx;
+}
+.type-list {
+  width: 100%;
+  height: 82rpx;
+  background: #F9EEDA url(https://gongde-assets.oss-cn-shenzhen.aliyuncs.com/texture.png) repeat repeat;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+.type-list-container {
+  padding: 24rpx 32rpx 0 32rpx;
+  display: flex;
+  overflow: auto;
+  z-index: 10;
+  -webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%);
+}
+.type-list-container::-webkit-scrollbar {
+  display:none
+}
+.type-list-container view {
+  flex: 1 0 150rpx;
+  display: flex;
+  flex-direction: column;
+  color: #3C160F;
+  font-size: 26rpx;
+  text-align: center;
+  padding: 0 6rpx 20rpx 6rpx;
+  margin: 0 42rpx;
+}
+.type-list-container view:nth-child(1) {
+  margin-left: 0;
+}
+.type-list-container .status-active {
+  color: #A41522;
+  font-weight: bold;
+  position: relative;
+}
+.type-list-container .status-active::after {
+  content: '';
+  width: 100%;
+  height: 4rpx;
+  background: #A41522;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.my-brand-order-list {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0rpx auto 0rpx auto;
+  padding-top: 120rpx;
+  position: relative;
+  z-index: 2;
+}
+.my-brand-order-container {
+  padding-bottom: 120rpx;
+}
+.empty-order {
+  position: absolute;
+  width: 100%;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #382F30;
+  font-size: 28rpx;
+}
+.empty-order .iconfont {
+  font-size: 64rpx;
+  margin-bottom: 32rpx;
+}
+view::-webkit-scrollbar,
+scroll-view::-webkit-scrollbar {
+  display:none !important;
+}
+.my-brand-order-item {
+  width: calc(100% - 64rpx);
+  position: relative;
+  border: 1px solid #8B623E;
+  padding: 28rpx;
+  margin: 0 auto 40rpx auto;
+  box-sizing: border-box;
+}
+.my-brand-order-item::before, .my-brand-order-item::after, .helper::before, .helper::after {
+  background: url(https://gongde-assets.oss-cn-shenzhen.aliyuncs.com/border.png) repeat repeat;
+  width: 40rpx;
+  height: 40rpx;
+  background-size: 40rpx 40rpx;
+  position: absolute;
+  content: '';
+}
+.my-brand-order-item::before {
+  left: 0;
+  top: 0;
+}
+.my-brand-order-item::after {
+  right: 0;
+  top: 0;
+  transform: rotate(90deg);
+}
+.helper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+.helper::before {
+  left: 0;
+  bottom: 0;
+  transform: rotate(-90deg);
+}
+.helper::after {
+  right: 0;
+  bottom: 0;
+  transform: rotate(180deg);
+}
+.status-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: #8B623E;
+  font-size: 28rpx;
+}
+.status-bar view text {
+  margin-right: 24rpx;
+}
+.temple-status {
+  color: #A41522;
+}
+.goods-info {
+  margin-top: 32rpx;
+  display: flex;
+  justify-content: flex-start;
+  padding-bottom: 20rpx;
+  border-bottom: 1px solid rgba(139, 98, 62, .6);
+}
+.goods-info image {
+  width: 100rpx;
+  height: 100rpx;
+  border: 2rpx solid #fff;
+  border-radius: 12rpx;
+  margin-right: 30rpx;
+}
+.goods-order-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1 1 auto;
+}
+.goods-order-info view:nth-child(1) {
+  display: flex;
+  justify-content: space-between;
+}
+.goods-order-info view .goods-name {
+  color: #3C160F;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+.goods-order-info view .goods-unit, .goods-order-info view:nth-child(2) {
+  color: #8B623E;
+  font-size: 28rpx;
+}
+.goods-order-info view:nth-child(2) {
+  display: flex;
+  justify-content: flex-end;
+}
+.goods-order-info view:nth-child(2) text {
+  color: #3C160F;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+.btns {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20rpx;
+}
+.btns button {
+  margin: 0;
+  margin-left: 32rpx;
+  color: #8B623E;
+  font-size: 28rpx;
+  width: 180rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  border-radius: 12rpx;
+  border: 1px solid #8B623E;
+  background: none;
+}
+.btns button::after {
+  border-radius: 12rpx;
+}
+.btns .go-detail {
+  color: #A41522;
+  border-color: #A41522;
+}
+.btns .buy-again-hover {
+  background-color: #8B623E;
+  color: #F3EFEB;
+}
+.btns .go-detail-hover {
+  background-color: #A41522;
+  color: #F3EFEB;
+}

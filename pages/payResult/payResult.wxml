@@ -1,0 +1,28 @@
+<view class="pay-result-container">
+  <view class="pay-status-container">
+    <view class="helper"></view>
+    <view class="pay-status-content" wx:if="{{payStatus === 'ok'}}">
+      <view>
+        <text class="iconfont icon-duihao"></text>
+        <text>支付成功</text>
+      </view>
+      <text bindtap="goOrders" class="check-order">点击查看我的订单</text>
+    </view>
+    <view class="pay-status-content" wx:if="{{payStatus === 'fail'}}">
+      <text class="iconfont icon-guanbi"></text>
+      <text>支付失败</text>
+    </view>
+  </view>
+  <view class="divider"></view>
+  <view class="bless-para-container">
+    <view class="bless-para-title">祈愿文</view>
+    <image mode="aspectFit" class="fo" src="http://pf95cnw72.bkt.clouddn.com/fo.png" />
+    <block wx:for="{{blessText[TYPE]}}">
+      <text class="bless-para-content" wx:if="{{item.type === 'text'}}">{{item.value}}</text>
+      <image class="bless-para-pic" wx:if="{{item.type === 'image'}}" src="{{item.value}}" />
+    </block>
+    <!-- <image bindtap="prevCode" class="qrcode" src="http://pf95cnw72.bkt.clouddn.com/qrcode.png" /> -->
+  </view>
+</view>
+<float-btn />
+<official-account class="qrcode" wx:if="{{canIUse}}"></official-account>

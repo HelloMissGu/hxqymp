@@ -1,0 +1,57 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/home/home",
+    "pages/news/news",
+    "pages/newsDetail/newsDetail",
+    "pages/templeDetail/templeDetail",
+    "pages/signin/signin",
+    "pages/my/my",
+    "pages/bless/bless",
+    "pages/blessOrder/blessOrder",
+    "pages/blessUserList/blessUserList",
+    "pages/blessCalendar/blessCalendar",
+    "pages/payResult/payResult",
+    "pages/userList/userList",
+    "pages/donateDetail/donateDetail",
+    "pages/myBrand/myBrand",
+    "pages/myBrandDetail/myBrandDetail",
+    "pages/myDonate/myDonate",
+    "pages/myOrders/myOrders",
+    "pages/myRibbonDetail/myRibbonDetail",
+    "pages/myLightDetail/myLightDetail",
+    "pages/out/out"
+  ],
+  "window": {
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "首页",
+    "navigationBarTextStyle":"black"
+  },
+  "requiredBackgroundModes": ["audio"],
+  "tabBar": {
+    "color": "#8B623E",
+    "selectedColor": "#A41522",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "祈福",
+        "iconPath": "./assets/images/icon-temple.png",
+        "selectedIconPath": "./assets/images/icon-temple-active.png"
+      },
+      {
+        "pagePath": "pages/news/news",
+        "text": "法讯",
+        "iconPath": "./assets/images/icon-woodfish.png",
+        "selectedIconPath": "./assets/images/icon-woodfish-active.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "个人中心",
+        "iconPath": "./assets/images/icon-my.png",
+        "selectedIconPath": "./assets/images/icon-my-active.png"
+      }
+    ]
+  }
+}

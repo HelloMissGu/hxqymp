@@ -1,0 +1,315 @@
+@import '../../assets/iconfont/font.wxss';
+page {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+  background: #F9EEDA url(https://gongde-assets.oss-cn-shenzhen.aliyuncs.com/texture.png) repeat repeat;
+}
+.my-light-detail-container {
+  width: calc(100% - 64rpx);
+  margin: 0 auto;
+  padding-top: 40rpx;
+  padding-bottom: 120rpx;
+}
+.light-detail-item {
+  position: relative;
+  border: 1px solid #8B623E;
+  padding: 32rpx 40rpx 32rpx 40rpx;
+  margin-bottom: 32rpx;
+}
+.light-detail-item::before, .light-detail-item::after, .helper::before, .helper::after {
+  background: url(https://gongde-assets.oss-cn-shenzhen.aliyuncs.com/border.png) repeat repeat;
+  width: 40rpx;
+  height: 40rpx;
+  background-size: 40rpx 40rpx;
+  position: absolute;
+  content: '';
+}
+.light-detail-item::before {
+  left: 0;
+  top: 0;
+}
+.light-detail-item::after {
+  right: 0;
+  top: 0;
+  transform: rotate(90deg);
+}
+.helper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+.helper::before {
+  left: 0;
+  bottom: 0;
+  transform: rotate(-90deg);
+}
+.helper::after {
+  right: 0;
+  bottom: 0;
+  transform: rotate(180deg);
+}
+.light-detail-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.light-detail-status-title {
+  color: #A41522;
+  font-weight: bold;
+  font-size: 32rpx;
+}
+.light-detail-status-content {
+  margin-top: 24rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: #8B623E;
+  font-size: 26rpx;
+}
+.light-detail-status-content text {
+  font-weight: bold;
+}
+.light-detail-status-feedback {
+  width: calc(100% - 36rpx);
+  margin: 24rpx auto 0 auto;
+  padding-top: 32rpx;
+  border-top: 1px solid rgba(139, 98, 62, .6);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.light-detail-status-feedback image, .light-detail-status-feedback view  {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 12rpx;
+  border: 1px solid #fff;
+  margin-bottom: 12rpx;
+}
+.light-detail-status-feedback view {
+  visibility: hidden;
+}
+/* -------------- 供养类别 -------------- */
+.bless-order-item-title {
+  display: flex;
+  padding-bottom: 12rpx;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: #3C160F;
+  font-size: 28rpx;
+  border-bottom: 1px solid rgba(139, 98, 62, .6);
+  margin-bottom: 24rpx;
+}
+.bless-order-item-intro {
+  margin-top: 32rpx;
+  display: flex;
+  justify-content: flex-start;
+}
+.bless-order-item-intro image {
+  width: 100rpx;
+  height: 100rpx;
+  border: 1px solid #fff;
+  border-radius: 12rpx;
+  margin-right: 32rpx;
+}
+.bless-order-item-intro > view {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.type-title, .order-dates {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.order-dates {
+  justify-content: flex-end;
+}
+.type-title .title {
+  color: #3C160F;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+.type-title .price {
+  color: #8B623E;
+  font-weight: bold;
+  font-size: 28rpx;
+}
+.type-title .price text, .date-amounts text {
+  color: #A41522;
+}
+.date-label {
+  width: 120rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  border-radius: 20rpx;
+  background: #A41522;
+  text-align: center;
+  color: #F3EFEB;
+  font-size: 26rpx;
+}
+.date-text {
+  color: #8B623E;
+  font-size: 28rpx;
+}
+.date-amounts {
+  color: #8B623E;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+/* -------------- 供养时间 -------------- */
+.bless-order-item-list {
+  overflow-y: auto;
+}
+.light-time-list {
+  max-height: 380rpx;
+  overflow-y: auto;
+  border-bottom: 1px solid rgba(139, 98, 62, .6);
+  padding-bottom: 20rpx;
+  margin-bottom: 40rpx;
+}
+.light-bless-total-days {
+  font-size: 26rpx;
+  color: #8B623E;
+  text-align: right;
+}
+.light-bless-total-days text {
+  font-weight: bold;
+  color: #A41522;
+}
+.light-time-list::-webkit-scrollbar {
+  display: none;
+}
+.light-time-item {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24rpx;
+}
+.date-tip {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+}
+.date-tip text {
+  color: #3C160F;
+  font-size: 26rpx;
+  font-weight: bold;
+}
+.date-tip > view {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12rpx;
+}
+.date-tip > view view {
+  color: #F3EFEB;
+  font-size: 26rpx;
+  text-align: center;
+  padding: 0 18rpx;
+  border-radius: 90rpx;
+}
+.lunar {
+  background: #3C160F;
+}
+.special {
+  background: #A41522;
+}
+.date-detail {
+  color: #8B623E;
+  font-size: 26rpx;
+  margin-left: 40rpx;
+  flex: 1 1 auto;
+}
+/* -------------- 缘主信息 -------------- */
+.patron-info-item {
+  color: #8B623E;
+  font-weight: bold;
+  font-size: 28rpx;
+  display: flex;
+  padding: 20rpx 0;
+  border-bottom: 1px solid rgba(139, 98, 62, .6);
+}
+.patron-info-item:nth-last-child(1) {
+  border: 0;
+}
+.patron-info-item text:nth-child(1) {
+  flex: 0 0 170rpx;
+  margin-right: 30rpx;
+}
+.patron-info-item text:nth-child(2) {
+  color: #3C160F;
+  font-weight: normal;
+}
+/* -------------- 底部按钮 -------------- */
+button.rebuy {
+  display: block;
+  color: #F3EFEB;
+  font-size: 36rpx;
+  width: 100%;
+  height: 100rpx;
+  z-index: 200;
+  line-height: 100rpx;
+  background: #A41522;
+  position: fixed;
+  bottom: 0;
+  border-radius: 0;
+  border: none;
+}
+button.rebuy::after {
+  border-radius: 0;
+  border: none;
+}
+button.rebuy.button-hover {
+  background-color: rgb(107, 14, 21);
+  color: #F3EFEB;
+}
+.continue-buy {
+  width: 100%;
+  height: 100rpx;
+  z-index: 200;
+  line-height: 100rpx;
+  position: fixed;
+  bottom: 0;
+  border: none;
+  background: #E5C89D;
+}
+.continue-buy .cancel-buy,
+.continue-buy .go-buy {
+  width: 250rpx;
+  height: 100%;
+  background: #E5C89D;
+  position: absolute;
+  top: 0;
+  color: #fff;
+  border-radius: 0;
+  border: none;
+}
+.continue-buy .cancel-buy {
+  left: 0;
+}
+.continue-buy .go-buy {
+  width: calc(100% - 250rpx);
+  right: 0;
+  background: #A41522;
+  margin: 0;
+}
+.continue-buy .cancel-buy.cancel-buy-hover {
+  background: #D8B98C;
+}
+.continue-buy .go-buy.go-buy-hover {
+  background: rgb(107, 14, 21);
+}
+.continue-buy .cancel-buy::after,
+.continue-buy .go-buy::after {
+  border-radius: 0;
+  border: none;
+}
+.go-buy text {
+  font-weight: bold;
+  margin-right: 32rpx;
+}

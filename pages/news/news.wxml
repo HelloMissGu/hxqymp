@@ -1,0 +1,75 @@
+<wxs module="handleNews">
+var handleDonateList = function (dArray) {
+  return dArray.map(function (item) {
+    var o = {}
+    o.id = item.id
+    o.image = item.image
+    o.title = item.temple_name + '——' + item.title
+    o.uptoDate = item.end_time.substring(0, 10)
+    return o
+  })
+}
+var handleDonateItemDate = function (s) {
+  return s.substring(0, 10)
+}
+
+module.exports.handleDonateList = handleDonateList
+module.exports.handleDonateItemDate = handleDonateItemDate
+</wxs>
+<scroll-view class="news-container" bindscrolltolower="reachNewsBottom" scroll-y="true" lower-threshold="50">
+  <view class="news-content-container">
+    <view class="choose-bar-container">
+      <view class="choose-bar">
+        <view bindtap="changeType" data-type='news' class="news {{type === 'news' ? 'active' : ''}}">法讯</view>
+        <view bindtap="changeType" data-type='donate' class="donate {{type !== 'news' ? 'active' : ''}}">共修</view>
+      </view>
+    </view>
+    <view class="news-list-container" wx:if="{{type === 'news'}}">
+      <view class="empty-news" wx:if="{{newsList.length === 0}}">
+        <view class="iconfont icon-kong"></view>
+        <view>———— 暂无法讯信息 ————</view>
+      </view>
+      <navigator url="/pages/newsDetail/newsDetail?id={{item.id}}"
+        wx:for="{{newsList}}" wx:key="*this" hover-class="none">
+        <view class="news-list-item" data-newsId="{{item.id}}">
+          <image src="{{item.previews.length ? item.previews[0].image_url : ''}}" />
+          <view class="news-item-info">
+            <text class="news-item-title">{{item.title}}</text>
+            <view class="news-item-date">
+              <view>
+                <text class="iconfont icon-13"></text>
+                <text class="news-release-date">发布时间{{handleNews.handleDonateItemDate(item.created_at)}}</text>
+              </view>
+              <text class="iconfont icon-myIcon_right"></text>
+            </view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+    <view class="donate-list-container" wx:else>
+      <view class="empty-news" wx:if="{{donateList.length === 0}}">
+        <view class="iconfont icon-kong"></view>
+        <view>———— 暂无共修信息 ————</view>
+      </view>
+      <navigator url="/pages/donateDetail/donateDetail?id={{item.id}}" wx:for="{{handleNews.handleDonateList(donateList)}}" wx:key="*this" hover-class="none">
+        <view class="donate-list-item">
+          <image src="{{item.image}}" />
+          <view class="donate-item-info">
+            <text class="donate-item-title">{{item.title}}</text>
+            <view class="donate-item-date">
+              <view>
+                <text class="iconfont icon-13"></text>
+                <text class="donate-upto-date">截止至{{item.uptoDate}}</text>
+              </view>
+              <view>
+                <text class="donate-detail-btn">查看共修详情</text>
+                <text class="iconfont icon-myIcon_right"></text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+  </view>
+</scroll-view>
+<float-btn />
